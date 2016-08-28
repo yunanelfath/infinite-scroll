@@ -3,7 +3,11 @@ HotelHeader = React.createClass
 
   componentWillReceiveProps: (newProps) ->
 
+  onHoverMenu: (event, e) ->
+    console.log event
+
   render: ->
+    { onHoverMenu } = @
     <div className="container" style={marginTop: '5px'}>
       <nav>
         <div className="nav navbar-nav navbar-left">
@@ -15,9 +19,9 @@ HotelHeader = React.createClass
       </nav>
       <nav>
         <ul className="nav navbar-nav navbar-right">
-          <li><a href="#">about us<i></i></a></li>
-          <li><a href="#">HPL companies<i></i></a></li>
-          <li><a href="#">investor relations<i></i></a></li>
+          <li><a href="#" onMouseOver={onHoverMenu.bind(@,'about us')}>about us<i></i></a></li>
+          <li><a href="#" onMouseOver={onHoverMenu.bind(@,'HPL')}>HPL companies<i></i></a></li>
+          <li><a href="#" onMouseOver={onHoverMenu.bind(@,'investor relations')}>investor relations<i></i></a></li>
           <li><a href="#">career</a></li>
         </ul>
       </nav>
