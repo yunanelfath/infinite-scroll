@@ -74,25 +74,93 @@ p {
   }
 }
 .navbar-right{
-  height: 68px; padding-top: 19px;
+  height: 68px; padding-top: 19px;margin-right: 50px;
   a{
     color: $black-font;
     font-family: roboto;
     text-transform: capitalize;
   }
-  a.sub-menu::after{
+  i{
     background-image: url(asset-path('shape-down.png'));
-    background-repeat: no-repeat;
+    
     color: transparent;
     content: '\f0da';
+    background-repeat: no-repeat;
+    bottom: 35%;
     font-size: 4px;
-    height: auto;
-    margin-left: 5px;
-    width: auto;
+    height: 7px;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    width: 10px;
   }
   a:hover{
     background-color: transparent !important;
   }
+}
+.container-latest{
+  width: 100%;display: inline-block;
+  .image-right{
+    height: 500px; background-color: #d7d7d7; width: 900px; float: right; display: inline-block;
+  }
+  .latest-left{
+    height: 500px;
+    background: #8C6239; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left top , #8C6239 25%, #FFFFFF 230%); /*Safari 5.1-6*/
+    background: -o-linear-gradient(left top , #8C6239 25%, #FFFFFF 230%); /*Opera 11.1-12*/
+    background: -moz-linear-gradient(left top , #8C6239 25%, #FFFFFF 230%); /*Fx 3.6-15*/
+    background: linear-gradient(left top , #8C6239 25%, #FFFFFF 230%); /*Standard*/
+    float: left; display: inline-block; width: 456px;
+    .box-container-latest-left{
+      display: table; vertical-align: middle; width: 100%;
+      .box{
+        font-family: roboto; padding-left: 40px; background: none repeat scroll 0% 0% transparent; padding-top: 120px;
+        display: inline-block; height: 300px; vertical-align: middle; width: 100%;
+        .box-container-text{
+          margin-bottom: 25px;
+          .latest-text{
+            color: #FFFFFF;
+            font-size: 48px;
+            font-weight: 100;
+            span{
+              font-weight: 300;
+            }
+          }
+          .hotel-text{
+            color: #FFFFFF;
+            font-size: 48px;
+            font-weight: 500;
+            line-height: 30px;
+          }
+          .description-text{
+            color: #FFFFFF;
+            font-size: 18px;
+            font-weight: 100;
+            line-height: 30px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            width: 387px;
+          }
+        }
+        a{
+          background: none repeat scroll 0 0 #FFFFFF;
+          color: #8F663E;
+          display: inline-block;
+          font-size: 16px;
+          font-style: italic;
+          padding: 16px 15px;
+          width: 111px;
+        }
+        a:hover{
+          text-decoration: none;
+          background: #e6e5d1;
+        }
+      }
+    }
+  }
+}
+.container-text{
+  height: 100px; background-color: red; margin-top: -5px;width: auto;
 }
 /* content */
 

@@ -45,6 +45,8 @@ gem 'lodash-rails'
 
 gem 'masonry-rails' # masonry rails and adding require jquery.masonry on application.js
 
+gem 'slim-rails' # html.slim
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
