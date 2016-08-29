@@ -1,8 +1,6 @@
 $black-font: #362f2d;
 
-body {
-  padding-top: 60px;
-}
+
 
 section {
   // overflow: auto;
@@ -51,6 +49,9 @@ p {
 }
 
 /* header */
+.navbar{
+  margin-bottom: 7px;
+}
 .navbar-fixed-top{
   background-color: #fff !important;
 }
@@ -82,7 +83,7 @@ p {
   }
   i{
     background-image: url(asset-path('shape-down.png'));
-    
+
     color: transparent;
     content: '\f0da';
     background-repeat: no-repeat;
@@ -156,6 +157,41 @@ p {
           background: #e6e5d1;
         }
       }
+    }
+  }
+}
+.container-our-hotels{
+  margin-top: 15px;
+  .box-container-our{
+    display: table;width: 100%;
+    .left{
+      padding: 10px 10px 10px 30px;
+      text-align: center;
+      width: 110px;
+      a{
+        font-size: 16px;font-family: roboto;text-transform: capitalize;color: $black-font;
+      }
+      a:hover{
+        text-decoration: none;
+      }
+      i{
+        background: url(asset_path('back-x.png'));
+        background-repeat: no-repeat;
+        display: inline-block;
+        height: 14px;
+        margin: 0 5px -3px 0;
+        width: 25px;
+      }
+    }
+    .center{
+      text-align: center;
+      padding-left: 85px;
+      span{
+        font-family: montserrat; font-size: 40px; text-transform: uppercase; font-weight: bold;color: $black-font;
+      }
+    }
+    .right{
+      text-align: right;width: 205px;
     }
   }
 }
