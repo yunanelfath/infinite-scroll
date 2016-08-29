@@ -162,6 +162,9 @@ p {
 }
 .container-our-hotels{
   margin-top: 15px;
+  margin-bottom: 15px;
+  width: 100%;
+  display: inline-block;
   .box-container-our{
     display: table;width: 100%;
     .left{
@@ -193,12 +196,53 @@ p {
     .right{
       text-align: right;width: 205px;
     }
-  }
+    }
 }
 .container-text{
   height: 100px; background-color: red; margin-top: -5px;width: auto;
 }
 /* content */
+
+.container-hotels-box{
+  width: 100%;display: inline-block;
+  .col-half{
+    width: 50%;float: left;
+    .col-margin{
+      display: inline-block;
+      text-align: left;
+      width: 100%;
+      .col-item{
+        border: 1px solid #000;
+        float: right;
+        margin-bottom: 10px;
+        margin-right: 10px;
+      }
+      .tall{
+        height: 678px;
+        width: 331.5px;
+      }
+      .tall-right-right{
+        margin-left: 5px;
+        margin-right: 0;
+        width: 336.5px;
+      }
+      .tall-right-left{
+        margin-right: 5px;
+        width: 336.5px;
+      }
+      .weight{
+        height: 334px;
+        margin-right: 0;
+        width: 683px;
+      }
+      .large{
+        height: 678px;
+        width: 678px;
+      }
+    }
+  }
+
+}
 
 
 
