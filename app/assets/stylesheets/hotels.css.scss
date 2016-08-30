@@ -102,7 +102,7 @@ p {
 .container-latest{
   width: 100%;display: inline-block;
   .image-right{
-    height: 500px; background-color: #d7d7d7; width: 900px; float: right; display: inline-block;
+    height: 500px; background-color: #d7d7d7; width: 900px; float: left; display: inline-block;margin-left: 8px;
   }
   .latest-left{
     height: 500px;
@@ -233,11 +233,13 @@ p {
       .weight{
         height: 334px;
         margin-right: 0;
-        width: 683px;
+        width: 681px;
+        float: left;
       }
       .large{
         height: 678px;
-        width: 678px;
+        width: 673px;
+        background: url(asset_path('thailand.jpg'))
       }
     }
   }
@@ -249,10 +251,7 @@ p {
 /* footer */
 
 footer {
-  margin-top: 45px;
-  padding-top: 5px;
-  border-top: 1px solid #eaeaea;
-  color: #777;
+
 }
 
 footer a {
