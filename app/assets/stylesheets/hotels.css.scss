@@ -224,7 +224,8 @@ p {
         -ms-transition-delay: 0.2s;
         transition-delay: 0.2s;
       }
-      .col-item:hover .hover-box:hover .col-horizontal{ //trigger after .hover-box is hovered
+
+      .col-item:hover .col-horizontal, .col-item:hover .col-vertical{ //trigger after .hover-box is hovered
         opacity: 1;
         transition-delay: 0.2s;
         -webkit-transform: scale(1) rotate(0deg);
@@ -233,11 +234,25 @@ p {
         -ms-transform: scale(1) rotate(0deg);
         transform: scale(1) rotate(0deg);
       }
-      .col-item:hover span{
-        display: none;
+      .col-item:hover .col-horizontal .label, .col-item:hover .col-vertical .label{ //trigger after .hover-box is hovered
+        opacity: 1;
+        transition-delay: 0.6s;
+        -webkit-transform: scale(1) rotate(0deg);
+        -moz-transform: scale(1) rotate(0deg);
+        -o-transform: scale(1) rotate(0deg);
+        -ms-transform: scale(1) rotate(0deg);
+        transform: scale(1) rotate(0deg);
+      }
+      .col-item:hover .col-horizontal .hotel-lists, .col-item:hover .col-vertical .hotel-lists{
+        opacity: 1;
+        transition-delay: 0.9s;
+        -webkit-transform: scale(1) rotate(0deg);
+        -moz-transform: scale(1) rotate(0deg);
+        -o-transform: scale(1) rotate(0deg);
+        -ms-transform: scale(1) rotate(0deg);
+        transform: scale(1) rotate(0deg);
       }
       .col-item{
-        border: 1px solid #000;
         float: right;
         margin-bottom: 10px;
         margin-right: 10px;
@@ -259,19 +274,165 @@ p {
           -moz-transition: all 0.4s ease-in;
           -o-transition: all 0.4s ease-in;
           -ms-transition: all 0.4s ease-in;
-          .col-horizontal{
-            width: 100%; font-size: 20px; color: #fff; height: 100%;opacity: 0;
+        }
+        .col-horizontal{
+          opacity: 0;
+          transition: all 0.4s ease-in;
+          -webkit-transform: scale(0) rotate(-180deg);
+          -moz-transform: scale(0) rotate(-180deg);
+          -o-transform: scale(0) rotate(-180deg);
+          -ms-transform: scale(0) rotate(-180deg);
+          transform: scale(0) rotate(-180deg);
+          -webkit-transition: all 0.4s ease-in;
+          -moz-transition: all 0.4s ease-in;
+          -o-transition: all 0.4s ease-in;
+          -ms-transition: all 0.4s ease-in;
+
+          position: absolute; width: 100%; display: table; height: 139px; top: 33%;
+
+          .label{
+            color: #fff;
+            display: table-cell;
+            font-family: montserrat;
+            font-size: 36px;
+            font-weight: bold;
+            opacity: 3;
+            padding-left: 40px;
+            text-transform: uppercase;
+            vertical-align: middle;
+            width: 42%;
+
+
             transition: all 0.4s ease-in;
-            -webkit-transform: scale(0) rotate(-180deg);
-            -moz-transform: scale(0) rotate(-180deg);
-            -o-transform: scale(0) rotate(-180deg);
-            -ms-transform: scale(0) rotate(-180deg);
-            transform: scale(0) rotate(-180deg);
+            -webkit-transform: scale(0) rotate(180deg);
+            -moz-transform: scale(0) rotate(180deg);
+            -o-transform: scale(0) rotate(180deg);
+            -ms-transform: scale(0) rotate(180deg);
+            transform: scale(0) rotate(180deg);
             -webkit-transition: all 0.4s ease-in;
             -moz-transition: all 0.4s ease-in;
             -o-transition: all 0.4s ease-in;
             -ms-transition: all 0.4s ease-in;
           }
+          .hotel-lists{
+            opacity: 0;
+            border-left: 2.5px solid #fff;
+            display: table-cell;
+            padding-left: 40px;
+            padding-right: 60px;
+            vertical-align: middle;
+
+
+            transition: all 0.4s ease-in;
+            -webkit-transform: scale(0) rotate(-90deg);
+            -moz-transform: scale(0) rotate(-90deg);
+            -o-transform: scale(0) rotate(-90deg);
+            -ms-transform: scale(0) rotate(-90deg);
+            transform: scale(0) rotate(-90deg);
+            -webkit-transition: all 0.4s ease-in;
+            -moz-transition: all 0.4s ease-in;
+            -o-transition: all 0.4s ease-in;
+            -ms-transition: all 0.4s ease-in;
+            li{
+              color: #fff;
+              display: block;
+              font-family: roboto;
+              font-size: 16px;
+              font-style: italic;
+              font-weight: bold;
+              line-height: 20px;
+              margin-bottom: 10px;
+              text-transform: capitalize;
+            }
+          }
+
+
+        }
+
+        .col-vertical{
+          opacity: 0;
+          transition: all 0.4s ease-in;
+          -webkit-transform: scale(0) rotate(-180deg);
+          -moz-transform: scale(0) rotate(-180deg);
+          -o-transform: scale(0) rotate(-180deg);
+          -ms-transform: scale(0) rotate(-180deg);
+          transform: scale(0) rotate(-180deg);
+          -webkit-transition: all 0.4s ease-in;
+          -moz-transition: all 0.4s ease-in;
+          -o-transition: all 0.4s ease-in;
+          -ms-transition: all 0.4s ease-in;
+
+          display: inline-block;
+          height: auto;
+          padding: 11px 40px;
+          position: absolute;
+          text-align: left;
+          top: 30%;
+          width: 100%;
+
+          .label{
+            color: #fff;
+            display: table-row;
+            font-family: montserrat;
+            font-size: 36px;
+            font-weight: bold;
+            opacity: 3;
+            padding-left: 40px;
+            text-align: left;
+            text-transform: uppercase;
+            transform: scale(0) rotate(180deg);
+            transition: all 0.4s ease-in 0s;
+            vertical-align: middle;
+            width: 100%;
+
+
+            transition: all 0.4s ease-in;
+            -webkit-transform: scale(0) rotate(180deg);
+            -moz-transform: scale(0) rotate(180deg);
+            -o-transform: scale(0) rotate(180deg);
+            -ms-transform: scale(0) rotate(180deg);
+            transform: scale(0) rotate(180deg);
+            -webkit-transition: all 0.4s ease-in;
+            -moz-transition: all 0.4s ease-in;
+            -o-transition: all 0.4s ease-in;
+            -ms-transition: all 0.4s ease-in;
+          }
+          .hotel-lists{
+            display: table-row;
+            margin: 0 40px;
+            opacity: 0;
+            padding: 4px;
+            vertical-align: middle;
+
+            transition: all 0.4s ease-in;
+            -webkit-transform: scale(0) rotate(-90deg);
+            -moz-transform: scale(0) rotate(-90deg);
+            -o-transform: scale(0) rotate(-90deg);
+            -ms-transform: scale(0) rotate(-90deg);
+            transform: scale(0) rotate(-90deg);
+            -webkit-transition: all 0.4s ease-in;
+            -moz-transition: all 0.4s ease-in;
+            -o-transition: all 0.4s ease-in;
+            -ms-transition: all 0.4s ease-in;
+            .hote-lists-item{
+              border-top: 2.5px solid #fff;
+              margin-top: 20px;
+              padding-top: 20px;
+              li{
+                color: #fff;
+                display: block;
+                font-family: roboto;
+                font-size: 16px;
+                font-style: italic;
+                font-weight: bold;
+                line-height: 20px;
+                margin-bottom: 10px;
+                text-transform: capitalize;
+              }
+            }
+          }
+
+
         }
         span{
           background: #fff;
@@ -286,6 +447,10 @@ p {
           text-transform: uppercase;
           width: auto;
         }
+      }
+
+      .col-item:hover span{
+        display: none;
       }
       .tall{
         height: 678px;
