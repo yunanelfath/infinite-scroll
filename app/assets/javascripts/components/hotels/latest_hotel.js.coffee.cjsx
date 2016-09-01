@@ -53,6 +53,7 @@ LatestHotel = React.createClass
     )
 
   render: ->
+    {clickToTop} = @
     sliderComponent = (i, index) =>
       <li className="anim-slide">
         <img src="#{i.url}"/>
@@ -81,6 +82,10 @@ LatestHotel = React.createClass
       <ul className="image-right anim-slider">
         {@props.sliders.map(sliderComponent)}
       </ul>
+      <div className="back-top" onClick={clickToTop}></div>
     </div>
+
+  clickToTop: ->
+    $("html, body").animate({ scrollTop: 0 }, "slow")
 
 window.LatestHotel = LatestHotel
