@@ -640,3 +640,20 @@ footer ul li {
   float: left;
   margin-left: 15px;
 }
+
+footer i{
+  background-repeat: no-repeat;
+  bottom: 2px;
+  height: 17px;
+  position: absolute;
+  width: 14px;
+}
+footer i.email{
+  background: url(asset_path('mail-icon.png'));
+}
+footer i.phone{
+  background: url(asset_path('phone-icon.png'));
+}
+footer i.fax{
+  background: url(asset_path('fax-icon.png'));
+}
