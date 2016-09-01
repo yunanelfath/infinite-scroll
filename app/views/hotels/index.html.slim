@@ -1,17 +1,4 @@
-.container-latest
-  .latest-left
-    .box-container-latest-left
-      .box
-        .box-container-text
-          .latest-text
-            | Latest/
-            span Featured
-          .hotel-text Hotels
-          .description-text
-            | The Hotel Division continued to show robust growth in 2014, expanding in the Maldives with the acquisition of Six Sensec Laamu
-        a href="#" Read More
-  .image-right style="background: url(#{asset_path('girl.jpg')})"
-
+= react_component 'LatestHotel', sliders: [{url: asset_path('first.jpg'), title: 'six sense laamu, maldives'},{url: asset_path('girl.jpg'), title: 'Four Season Resort, Landaa Giraavaru Maldives'}]
 .container-our-hotels
   .box-container-our
     .left.display-table-column

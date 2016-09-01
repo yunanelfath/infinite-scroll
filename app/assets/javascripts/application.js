@@ -20,5 +20,7 @@
 //= require js-routes
 //= require lodash
 //= require masonry/jquery.masonry
+//= require modernizr
+//= require jquery.animateSlider
 
 //= require_tree .
