@@ -1,14 +1,6 @@
 HotelHeader = React.createClass
-  componentDidMount: ->
-
-  componentWillReceiveProps: (newProps) ->
-
-  onHoverMenu: (level, name, e) ->
-    if $(e.target).closest('li').hasClass('treeview')
-      $(e.target).closest('li').find(".sub#{level}").attr({"style":'display: block !important;'})
-
   render: ->
-    { onHoverMenu } = @
+
     <div className="container" style={marginTop: '5px'}>
       <nav>
         <div className="nav navbar-nav navbar-left">
@@ -21,29 +13,43 @@ HotelHeader = React.createClass
       <nav>
         <ul className="nav navbar-nav navbar-right">
           <li className="treeview">
-            <a href="#" onMouseOver={onHoverMenu.bind(@,1, 'about us')}>about us<i></i></a>
-            <div className="sub1">
-              <div className="sub-container">
-                <ul className="nav navbar-nav">
-                  <li><a href="#">asdfasdf</a></li>
-                  <li><a href="#">asdfasdf</a></li>
-                  <li className="treeview">
-                    <a href="#" onMouseOver={onHoverMenu.bind(@,2, 'aasdf')}>asdfasdf</a>
-                    <div className="sub-container sub2">
-                      <div className="sub-container">
-                        <ul className="nav navbar-nav">
-                          <li><a href="#">asdfasdf</a></li>
-                          <li><a href="#">asdfasdf</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <a href="#">about us<i></i></a>
+            <ul className="nav navbar-nav sub">
+              <li><a href="#">corporate information</a></li>
+              <li><a href="#">corporate profile</a></li>
+              <li><a href="#">board of directors</a></li>
+            </ul>
           </li>
-          <li><a href="#" onMouseOver={onHoverMenu.bind(@,'HPL')}>HPL companies<i></i></a></li>
-          <li><a href="#" onMouseOver={onHoverMenu.bind(@,'investor relations')}>investor relations<i></i></a></li>
+          <li className="treeview">
+            <a href="#">HPL companies<i></i></a>
+            <ul className="nav navbar-nav sub">
+              <li><a href="#">hotels</a></li>
+              <li><a href="#">properties</a></li>
+              <li><a href="#">lifestyle</a></li>
+            </ul>
+          </li>
+
+          <li className="treeview">
+            <a href="#">investor relations<i></i></a>
+            <ul className="nav navbar-nav sub">
+              <li className="treeview">
+                <a href="#">annual reports<i></i></a>
+                <ul className="nav navbar-nav sub2">
+                  <li><a href="#">latest</a><i></i></li>
+                  <li><a href="#">archive</a></li>
+                </ul>
+              </li>
+              <li><a href="#">financial reports</a></li>
+              <li ><a href="#">dividen history</a></li>
+              <li className="treeview">
+                <a href="#">latest news<i></i></a>
+                <ul className="nav navbar-nav sub2">
+                  <li><a href="#">latest</a></li>
+                  <li><a href="#">archive</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
           <li><a href="#">career</a></li>
         </ul>
       </nav>
