@@ -10,8 +10,10 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require universal
- *= require hotels
- *= require jquery.animateSlider
+ *= require alex/bootstrap.min
+ *= require alex/main
+ *= require alex/responsive
+ *= require alex/carousel
+ *= require alex/transitions
 
  */

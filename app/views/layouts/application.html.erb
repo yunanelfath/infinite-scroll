@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Infinite scroll feeds</title>
+
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+   <title>ADX</title>
+   <meta name="description" content="">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300i,400,700" rel="stylesheet">
     <%= stylesheet_link_tag 'application', media: 'all',
                                            'data-turbolinks-track' => true %>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
   </head>
   <body>
-    <%= render 'layouts/header' %>
-    <section class="container" style="padding: 0">
-      <%= yield %>
-    </section>
-    <%= render 'layouts/footer' %>
+    <%= yield %>
   </body>
 </html>

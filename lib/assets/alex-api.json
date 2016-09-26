@@ -1,0 +1,311 @@
+{
+	"variables": [],
+	"info": {
+		"name": "ADX Advertisers API (Sandbox)",
+		"_postman_id": "2da631d9-f9e0-3684-fe3c-ddefb674c5d5",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Device List Featured",
+			"request": {
+				"url": "https://sandbox.10adx.com/api/devices/featured/",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": "Get featured devices"
+			},
+			"response": []
+		},
+		{
+			"name": "Device List",
+			"request": {
+				"url": "https://sandbox.10adx.com/api/devices/",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "location",
+							"value": "elbert's phone just for testing",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "width",
+							"value": "1920",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "height",
+							"value": "1080",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Request device list for buyer API to browse devices"
+			},
+			"response": []
+		},
+		{
+			"name": "Device List with Filters",
+			"request": {
+				"url": "https://sandbox.10adx.com/api/devices/?max_price=24000&min_price=0&property_type=ML",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "location",
+							"value": "elbert's phone just for testing",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "width",
+							"value": "1920",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "height",
+							"value": "1080",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Request device list for buyer API to browse devices"
+			},
+			"response": []
+		},
+		{
+			"name": "Device Detail",
+			"request": {
+				"url": "http://sandbox.10adx.com/api/device/d2b8f5fa-6a06-497f-8195-2667052827e7/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 64669263a5ebf909996184bc59fb02b4dec8b188",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "location",
+							"value": "elbert's phone just for testing",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "width",
+							"value": "1920",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "height",
+							"value": "1080",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Device Operating Hour",
+			"request": {
+				"url": "https://sandbox.10adx.com/api/device/d2b8f5fa-6a06-497f-8195-2667052827e7/operating-hour/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 64669263a5ebf909996184bc59fb02b4dec8b188",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Device Images",
+			"request": {
+				"url": "https://sandbox.10adx.com/api/device/d2b8f5fa-6a06-497f-8195-2667052827e7/images/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 64669263a5ebf909996184bc59fb02b4dec8b188",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": "get all images of associated device, including its thumbnails"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Unavailable Dates for a Device",
+			"request": {
+				"url": "https://sandbox.10adx.com/api/device/d2b8f5fa-6a06-497f-8195-2667052827e7/unavailable-dates/09/2016/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 64669263a5ebf909996184bc59fb02b4dec8b188",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Filter - Property Type",
+			"request": {
+				"url": "https://sandbox.10adx.com/api/devices/filter/property_type/",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": "Get the possible list of filters for property type"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Filter - Rotation",
+			"request": {
+				"url": "https://sandbox.10adx.com/api/devices/filter/rotation/",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": "Get the possible list of filters for rotation"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Filter - City",
+			"request": {
+				"url": "https://sandbox.10adx.com/api/cities/",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": "Get the possible list of filters for city"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Filter - Size",
+			"request": {
+				"url": "http://sandbox.10adx.com/api/devices/filter/size/",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Upload New Schedule",
+			"request": {
+				"url": "https://sandbox.10adx.com/advertisement/api/schedule/new/",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "device",
+							"value": "84c687f2-24c6-4bfb-bcee-b91e75ae901d",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "start",
+							"value": "2016-08-19",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "end",
+							"value": "2016-08-21",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Authentication Token",
+			"request": {
+				"url": "https://sandbox.10adx.com/api/token-auth/",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "elbert.ludica@gmail.com",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "Sandbox0000",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

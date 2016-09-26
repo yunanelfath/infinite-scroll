@@ -16,11 +16,7 @@
 //= require react
 //= require react-server
 //= require react_ujs
-//= require components
-//= require js-routes
-//= require lodash
-//= require masonry/jquery.masonry
-//= require modernizr
-//= require jquery.animateSlider
+//= require js/adx_wrapper
+//= require owl.carousel.min
 
 //= require_tree .
