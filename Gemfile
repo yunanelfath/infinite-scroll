@@ -1,3 +1,4 @@
+
 source 'https://rubygems.org'
 
 
@@ -46,6 +47,8 @@ gem 'lodash-rails'
 gem 'masonry-rails' # masonry rails and adding require jquery.masonry on application.js
 
 gem 'slim-rails' # html.slim
+
+gem 'flux-rails'
 
 gem 'modernizr-rails', '~> 2.7', '>= 2.7.1'
 

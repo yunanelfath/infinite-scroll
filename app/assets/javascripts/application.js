@@ -16,7 +16,20 @@
 //= require react
 //= require react-server
 //= require react_ujs
+// flux config
+//= require lodash
+//= require flux
+//= require js/init_dispatcher
+//= require fbemitter
+//
 //= require js/adx_wrapper
+//= require js/header_adx
+//= require js/slider_adx
+//= require js/intro_adx
+//= require js/about
+//= require js/featured_screen
+//= require js/footer_adx
+//= require js/stores/featured_screen_store
 //= require owl.carousel.min
 
 //= require_tree .
