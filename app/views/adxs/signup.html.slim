@@ -1,0 +1,13 @@
+.form-wrapper-container-react-component
+
+javascript:
+  ReactDOM.render(
+    React.createElement(FormWrapper, { headerImage: {adxLogo: '#{asset_path("img/logo-top.png").html_safe}', signUpLogo: '#{asset_path("img/icon/user.png").html_safe}'},
+      footerImage: {bottomLogo: '#{asset_path("img/logo-bottom.png").html_safe}'},
+      formType: 'signup'
+    }),
+    document.querySelector('.form-wrapper-container-react-component')
+  );
+  dispatcher.dispatch({
+    actionType: 'intialize-set-api', api: #{@file.to_json.html_safe}
+  })

@@ -23,13 +23,19 @@
 //= require fbemitter
 //
 //= require js/adx_wrapper
+//= require js/screen_wrapper
+//= require js/form_wrapper
+//= require js/signup_form
+//= require js/signin_form
 //= require js/header_adx
 //= require js/slider_adx
 //= require js/intro_adx
 //= require js/about
 //= require js/featured_screen
 //= require js/footer_adx
-//= require js/stores/featured_screen_store
+//= require js/stores/adx_wrapper_store
+//= require js/stores/api_store
+//= require js/main
 //= require owl.carousel.min
 
 //= require_tree .

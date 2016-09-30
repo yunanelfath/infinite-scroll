@@ -1,0 +1,17 @@
+.screen-wrapper-container-react-component
+
+javascript:
+  ReactDOM.render(
+        React.createElement(ScreenWrapper, { introScreen: {pcIcon: '#{asset_path("img/pc.png").html_safe}'},
+          headerImage: {adxLogo: '#{asset_path("img/logo-top.png").html_safe}', signUpLogo: '#{asset_path("img/icon/user.png").html_safe}'},
+          footerImage: {bottomLogo: '#{asset_path("img/logo-bottom.png").html_safe}'},
+          featuredIcon: {tv: '#{asset_path("img/icon/television.png").html_safe}',
+            employees: '#{asset_path("img/icon/employees.png").html_safe}'}
+        }),
+        document.querySelector('.screen-wrapper-container-react-component')
+      );
+  dispatcher.dispatch({
+    actionType: 'intialize-set-api', api: #{@file.to_json.html_safe}
+  })
+
+  deviceListLoadRequest()

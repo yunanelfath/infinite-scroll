@@ -2,7 +2,7 @@ HeaderAdx = React.createClass
   PropTypes: {
     headerImage: React.PropTypes.object
   }
-  
+
   render: ->
     { headerImage } = @props
     { adxLogo, signUpLogo } = headerImage
@@ -18,12 +18,12 @@ HeaderAdx = React.createClass
           <div className="col-sm-8">
             <div className="menu-top">
               <div className="menu-user">
-                <a href="screen.html">Screen</a>
-                <a href="learn-more.html">Learn More</a>
+                <a href="/screens" data-remote={false}>Screen</a>
+                <a href="/learn-more" data-remote={false}>Learn More</a>
               </div>
               <div className="menu-action">
-                <a href="signup.html"><img src="#{signUpLogo}" style={marginRight: '15px'}/>Sign Up</a>
-                <a href="login.html" className="login">Log in</a>
+                <a href="/sign-up" data-remote={false}><img src="#{signUpLogo}" style={marginRight: '15px'}/>Sign Up</a>
+                <a href="/sign-in" className="login" data-remote={false}>Log in</a>
               </div>
               <div className="clearfix"></div></div>
           </div>

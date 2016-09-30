@@ -1,1 +1,22 @@
-= react_component "AdxWrapper", api: {json: @file.to_hash}, sliderImage: {first: asset_path("img/slide-1.jpg")}, aboutImage: {itemImage: asset_path("img/about-1.jpg")}, contentImage: {middleImage: asset_path("img/screen-1.jpg")}, footerImage: {bottomLogo: asset_path("img/logo-bottom.png")}, headerImage: {adxLogo: asset_path("img/logo-top.png"), signUpLogo: asset_path("img/icon/user.png")}
+.adx-wrapper-container-react-component
+
+javascript:
+  ReactDOM.render(
+        React.createElement(AdxWrapper, { featuredIcon: {tv: '#{asset_path("img/icon/television.png").html_safe}',
+          employees: '#{asset_path("img/icon/employees.png").html_safe}'},headerImage: {adxLogo: '#{asset_path("img/logo-top.png").html_safe}',
+          signUpLogo: '#{asset_path("img/icon/user.png").html_safe}'}, footerImage: {bottomLogo: '#{asset_path("img/logo-bottom.png").html_safe}'},
+          contentImage: {middleImage: '#{asset_path("img/screen-1.jpg").html_safe}'},
+          aboutImages: [{image: '#{asset_path("img/about-1.jpg").html_safe}',
+          title: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."},
+          {image: '#{asset_path("img/about-2.jpg").html_safe}',
+          title: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."},
+          {image: '#{asset_path("img/about-3.jpg")}', title: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."}],
+          sliderImage: {first: '#{asset_path("img/slide-1.jpg")}'}
+        }),
+        document.querySelector('.adx-wrapper-container-react-component')
+      );
+  dispatcher.dispatch({
+    actionType: 'intialize-set-api', api: #{@file.to_json.html_safe}
+  })
+
+  featuredScreenLoadRequest()

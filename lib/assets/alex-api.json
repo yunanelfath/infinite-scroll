@@ -90,7 +90,7 @@
 		{
 			"name": "Device Detail",
 			"request": {
-				"url": "http://sandbox.10adx.com/api/device/d2b8f5fa-6a06-497f-8195-2667052827e7/",
+				"url": "https://sandbox.10adx.com/api/device/d2b8f5fa-6a06-497f-8195-2667052827e7/",
 				"method": "GET",
 				"header": [
 					{
@@ -231,7 +231,7 @@
 		{
 			"name": "Get Filter - Size",
 			"request": {
-				"url": "http://sandbox.10adx.com/api/devices/filter/size/",
+				"url": "https://sandbox.10adx.com/api/devices/filter/size/",
 				"method": "GET",
 				"header": [],
 				"body": {
