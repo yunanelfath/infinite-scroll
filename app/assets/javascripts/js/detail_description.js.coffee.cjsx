@@ -3,89 +3,109 @@ DetailDescription = React.createClass
     defaultDetailImage: React.PropTypes.object
   }
 
+  getInitialState: ->
+    {
+      deviceDetailContent: AdxWrapperStore.deviceDetailContent
+    }
+
+  componentDidMount: ->
+    @listener = AdxWrapperStore.addChangeListener(@_onChange)
+
+  componentWillUnmount: ->
+    @listener.remove()
+
+  _onChange: ->
+    @setState(deviceDetailContent: AdxWrapperStore.deviceDetailContent)
+
   render: ->
-    <div className="row">
-      <div className="col-sm-12">
-        <div className="page-wrap">
-          <h3 className="page-sub">Screen Detail</h3>
-          <h1 className="page-title">D Journal Coffee Bar Cilandak Townsquare</h1>
-        </div>
-        <div className="page-content">
-          <div className="row">
-            <div className="col-sm-6">
-              <div className="gallery-adx">
-                <div className="row">
-                  <div className="col-sm-6"><img src={@props.defaultDetailImage.item} className="image-responsive"/></div>
-                  <div className="col-sm-6"><img src={@props.defaultDetailImage.item} className="image-responsive"/></div>
-                  <div className="col-sm-6"><img src={@props.defaultDetailImage.item} className="image-responsive"/></div>
-                  <div className="col-sm-6"><img src={@props.defaultDetailImage.item} className="image-responsive"/></div>
-                  <div className="col-sm-6"><img src={@props.defaultDetailImage.item} className="image-responsive"/></div>
-                  <div className="col-sm-6"><img src={@props.defaultDetailImage.item} className="image-responsive"/></div>
+    { deviceDetailContent } = @state
+    { location, description, size, height, width, rotation, price, property_type, address,
+      country, province, city, zipcode, audience_daily, average_spending,
+      audience_description, frequently_per_hour, imageLists} = deviceDetailContent
+
+    if _.isEmpty(deviceDetailContent)
+      <div className="row"></div>
+    else
+      _this = @
+      imageRowComponents = (e) ->
+        <div className="col-sm-6"><img src={if e?.thumbnail_100 then e?.thumbnail_100 else _this.props.defaultDetailImage.item} className="image-responsive"/></div>
+      <div className="row">
+        <div className="col-sm-12">
+          <div className="page-wrap">
+            <h3 className="page-sub">Screen Detail</h3>
+            <h1 className="page-title">{location}</h1>
+          </div>
+          <div className="page-content">
+            <div className="row">
+              <div className="col-sm-6">
+                <div className="gallery-adx">
+                  <div className="row">
+                    {imageLists.map(imageRowComponents)}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-sm-6">
-              <div className="page-wrap">
-                <h3 className="page-sub">Description</h3>
-                <span className="meta-feature">
-                  <span>
-                    <img src={@props.defaultDetailImage.employees}/>
-                    200-1000 people/day
+              <div className="col-sm-6">
+                <div className="page-wrap">
+                  <h3 className="page-sub">Description</h3>
+                  <span className="meta-feature">
+                    <span>
+                      <img src={@props.defaultDetailImage.employees}/>
+                      {audience_daily} people/day
+                    </span>
                   </span>
-                </span>
-                <span className="meta-feature">
-                  <span>
-                    <img src={@props.defaultDetailImage.tv}/>
-                    Landscape monitor
+                  <span className="meta-feature">
+                    <span>
+                      <img src={@props.defaultDetailImage.tv}/>
+                      {rotation}
+                    </span>
                   </span>
-                </span>
-              </div>
-              <div className="meta-detail">
-                <div className="meta-table">
-                  <div className="meta-title">
-                    <span>Location</span>
+                </div>
+                <div className="meta-detail">
+                  <div className="meta-table">
+                    <div className="meta-title">
+                      <span>Location</span>
+                    </div>
+                    <div className="meta-value">
+                      :&nbsp;
+                      <span>{location}</span>
+                    </div>
                   </div>
-                  <div className="meta-value">
-                    :&nbsp;
-                    <span>Lippo Mall Puri, Jakarta Barat</span>
+                  <div className="meta-table">
+                    <div className="meta-title">
+                      <span>Property Type</span>
+                    </div>
+                    <div className="meta-value">
+                      :&nbsp;
+                      <span>{property_type}</span>
+                    </div>
+                  </div>
+                  <div className="meta-table">
+                    <div className="meta-title">
+                      <span>Avg. Spending</span>
+                    </div>
+                    <div className="meta-value">
+                      :&nbsp;
+                      <span>Rp. {Number(average_spending).toFixed(2)}/person</span>
+                    </div>
+                  </div>
+                  <div className="meta-table">
+                    <div className="meta-title">
+                      <span>Price</span>
+                    </div>
+                    <div className="meta-value">
+                      :&nbsp;
+                      <span>Rp. {Number(price).toFixed(2)}</span>
+                    </div>
                   </div>
                 </div>
-                <div className="meta-table">
-                  <div className="meta-title">
-                    <span>Property Type</span>
-                  </div>
-                  <div className="meta-value">
-                    :&nbsp;
-                    <span>Cafe</span>
-                  </div>
+                <div className="meta-description">
+                  <p>{description}</p>
+                  <p>{audience_description}</p>
                 </div>
-                <div className="meta-table">
-                  <div className="meta-title">
-                    <span>Avg. Spending</span>
-                  </div>
-                  <div className="meta-value">
-                    :&nbsp;
-                    <span>Rp. 5000/person</span>
-                  </div>
-                </div>
-                <div className="meta-table">
-                  <div className="meta-title">
-                    <span>Price</span>
-                  </div>
-                  <div className="meta-value">
-                    :&nbsp;
-                    <span>Rp. 20.000 - Rp. 100.000</span>
-                  </div>
-                </div>
-              </div>
-              <div className="meta-description">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet necessitatibus nisi dolorem harum itaque molestiae temporibus, debitis natus ipsa perferendis, mollitia veritatis provident neque, illo modi reprehenderit quam aspernatur? Obcaecati!</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet necessitatibus nisi dolorem harum itaque molestiae temporibus, debitis natus ipsa perferendis, mollitia veritatis provident neque, illo modi reprehenderit quam aspernatur? Obcaecati!</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
 window.DetailDescription = DetailDescription

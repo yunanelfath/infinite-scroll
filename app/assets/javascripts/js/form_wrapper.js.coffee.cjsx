@@ -94,7 +94,7 @@ FormWrapper = React.createClass
               <h3>Upload Your Ad</h3>
               <div className="ad-detail">
                 <div className="upload-container">
-                  <form enctype="multipart/form-data" method="post" action="upload.php" id="form-ad">
+                  <form encType="multipart/form-data" method="post" action="upload.php" id="form-ad">
                     <label className="btn btn-upload uploadad" title="UPLOAD">
                       <input type="file" className="hide" id="uploadad" name="uploadad" accept="image/*"/>UPLOAD
                     </label>

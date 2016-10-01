@@ -37,17 +37,26 @@ FeatureRowItem = React.createClass
     featuredIcon: React.PropTypes.object
   }
 
+  onSetDetail: ->
+    dispatcher.dispatch(
+      actionType: 'adx-global-attributes-setter'
+      attributes: deviceDetailId: @props.data.pub_id
+    )
+    setTimeout(=>
+      Turbolinks.visit('detail')
+    ,800)
+
   render: ->
     {data, featuredIcon} = @props
 
     <div className="col-sm-4">
       <div className="box-screen">
         <div className="box-img">
-          <a href="#{data.public_url}"><img alt="#{data.pub_id}" src={data.primary_photo}/></a>
+          <a onClick={@onSetDetail} href="javascript:void(0)"><img alt="#{data.pub_id}" src={data.primary_photo}/></a>
         </div>
         <div className="box-property">
           <h3 className="box-title">
-            <a href="#{data.public_url}">{data.description}</a>
+            <a onClick={@onSetDetail} href="javascript:void(0)">{data.description}</a>
           </h3>
 
           <div className="capacity">

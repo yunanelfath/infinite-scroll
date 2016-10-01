@@ -104,6 +104,55 @@ var filterDevices = function(obj){
   })
 }
 
+var getDeviceDetail = function(stringId){
+  if(stringId){
+    var url = "https://sandbox.10adx.com/api/device/"+stringId+"/?"+$.param({format: 'json'})
+    var token = getCookie('___adxLoginToken')
+    if(token){
+      $.ajax({
+        url: url,
+        method: "GET",
+        headers: {
+          "Authorization": JSON.parse(token).token
+        },
+        success: function(data){
+          params = data
+          params.imageLists = []
+          dispatcher.dispatch({
+            actionType: 'adx-global-attributes-setter',
+            attributes: {deviceDetailContent: params}
+          })
+          getDeviceDetailImage(stringId, token)
+        },
+      })
+    }else{
+      alert('You have to login first.')
+      Turbolinks.visit('sign-in')
+    }
+  }
+}
+
+var getDeviceDetailImage = function(id, token){
+  var url = "https://sandbox.10adx.com/api/device/"+id+"/images/?"+$.param({format: 'json'})
+  if(token){
+    $.ajax({
+      url: url,
+      method: "GET",
+      headers: {
+        "Authorization": JSON.parse(token).token
+      },
+      success: function(data){
+        params = AdxWrapperStore.deviceDetailContent
+        params.imageLists = data
+        dispatcher.dispatch({
+          actionType: 'adx-global-attributes-setter',
+          attributes: {deviceDetailContent: params}
+        })
+      },
+    })
+  }
+}
+
 var setCookie = function(key, value) {
     var expires = new Date();
     expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));

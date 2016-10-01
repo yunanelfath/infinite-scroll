@@ -15,6 +15,8 @@ window.AdxWrapperStore = _.assign(new EventEmitter(), {
   sizeLists: []
   rotationLists: []
   urlFilter: {}
+  deviceDetailId: ''
+  deviceDetailContent: {}
 
   requesting: { type: null, status: false }
 
@@ -56,4 +58,7 @@ dispatcher.register (payload) ->
       item = _.find(AdxWrapperStore[payload.type], (e) -> e[payload.sourceKey] == payload.key)
       _.assign(item, payload.attributes)
       AdxWrapperStore.emitItemChange(item)
+      AdxWrapperStore.emitChange()
+    when 'adx-global-attributes-setter'
+      _.assign(AdxWrapperStore, payload.attributes)
       AdxWrapperStore.emitChange()

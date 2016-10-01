@@ -4,7 +4,7 @@ SigninForm = React.createClass
       email: ''
       password: ''
       isCookieLogin: JSON.parse(getCookie('___adxLoginToken'))
-      sessionUser: AdxWrapperStore.sessionUser
+      isLoggedIn: false
     }
 
 
@@ -15,7 +15,7 @@ SigninForm = React.createClass
     @listener.remove()
 
   _onChange: ->
-    @setState(sessionUser: AdxWrapperStore.sessionUser, isCookieLogin: JSON.parse(getCookie('___adxLoginToken')))
+    @setState(isCookieLogin: JSON.parse(getCookie('___adxLoginToken')))
 
   onChangePassword: (event) ->
     @setState(password: event.target.value)
@@ -34,11 +34,11 @@ SigninForm = React.createClass
         _this.setState(isLoggedIn: true)
 
   render: ->
-    { email, password, isCookieLogin, sessionUser } = @state
+    { email, password, isCookieLogin, isLoggedIn } = @state
 
     <div className="account-container">
       {
-        if isCookieLogin
+        if isCookieLogin || isLoggedIn
           <div>
             <h2 className="title-account">Youve log on to your account</h2>
             <p className="note-account">
