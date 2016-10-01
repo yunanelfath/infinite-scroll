@@ -15,5 +15,16 @@
  *= require alex/responsive
  *= require alex/carousel
  *= require alex/transitions
+ *= require alex/minimal/_all
+ *= require alex/minimal/aero
+ *= require alex/minimal/blue
+ *= require alex/minimal/green
+ *= require alex/minimal/grey
+ *= require alex/minimal/minimal
+ *= require alex/minimal/orange
+ *= require alex/minimal/pink
+ *= require alex/minimal/purple
+ *= require alex/minimal/red
+ *= require alex/minimal/yellow
 
  */

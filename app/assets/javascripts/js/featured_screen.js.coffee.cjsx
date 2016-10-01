@@ -1,7 +1,6 @@
 featuredScreenState = ->
   {
     items: AdxWrapperStore.deviceListsFeatured
-    requesting: AdxWrapperStore.requesting
   }
 FeaturedScreen = React.createClass
   propTypes: {

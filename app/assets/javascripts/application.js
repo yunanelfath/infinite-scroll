@@ -25,6 +25,8 @@
 //= require js/adx_wrapper
 //= require js/screen_wrapper
 //= require js/form_wrapper
+//= require js/filter_screen
+//= require js/detail_description
 //= require js/signup_form
 //= require js/signin_form
 //= require js/header_adx

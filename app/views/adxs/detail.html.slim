@@ -4,7 +4,9 @@ javascript:
   ReactDOM.render(
     React.createElement(FormWrapper, { headerImage: {adxLogo: '#{asset_path("img/logo-top.png").html_safe}', signUpLogo: '#{asset_path("img/icon/user.png").html_safe}'},
       footerImage: {bottomLogo: '#{asset_path("img/logo-bottom.png").html_safe}'},
-      formType: 'signin'
+      defaultDetailImage: {tv: '#{asset_path("img/icon/television.png").html_safe}',
+        employees: '#{asset_path("img/icon/employees.png").html_safe}', item: '#{asset_path("img/screen-1.jpg")}'},
+      formType: 'detail'
     }),
     document.querySelector('.form-wrapper-container-react-component')
   );

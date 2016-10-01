@@ -16,6 +16,9 @@ class AdxsController < ApplicationController
 
   def learn_more
   end
+
+  def detail
+  end
   private
 
   def set_file

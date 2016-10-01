@@ -21,7 +21,9 @@ ScreenWrapper = React.createClass
             <div className="col-sm-12">
               <IntroScreen icon={pcIcon}/>
             </div>
-            <div className="col-sm-13 col-md-2"></div>
+            <div className="col-sm-13 col-md-2">
+              <FilterScreen />
+            </div>
             <div className="col-sm-9 col-md-10">
               <FeaturedScreen ref="featuredScreen" featuredIcon={featuredIcon}/>
             </div>

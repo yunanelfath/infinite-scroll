@@ -10,8 +10,8 @@ javascript:
         }),
         document.querySelector('.screen-wrapper-container-react-component')
       );
-  dispatcher.dispatch({
-    actionType: 'intialize-set-api', api: #{@file.to_json.html_safe}
-  })
-
   deviceListLoadRequest()
+  propertyTypeLoadRequest()
+  rotationListLoadRequest()
+  sizeListLoadRequest()
+  cityListLoadRequest()
