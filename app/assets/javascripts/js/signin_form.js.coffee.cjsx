@@ -30,14 +30,8 @@ SigninForm = React.createClass
       data: email: _this.state.email, password: _this.state.password
       method: "POST"
       success: (data) ->
-        setCookie('___adxLoginToken', JSON.stringify({token: data.token, email: _this.state.email}))
+        setCookie('___adxLoginToken', JSON.stringify({token: "Bearer #{data.token}", email: _this.state.email}))
         _this.setState(isLoggedIn: true)
-        setTimeout(=>
-          dispatcher.dispatch(
-            actionType: 'sign-in-cookie-set'
-            cookie: JSON.parse(getCookie('___adxLoginToken'))
-          )
-        ,800)
 
   render: ->
     { email, password, isCookieLogin, sessionUser } = @state

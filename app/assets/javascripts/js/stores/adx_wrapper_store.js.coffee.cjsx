@@ -15,7 +15,6 @@ window.AdxWrapperStore = _.assign(new EventEmitter(), {
   sizeLists: []
   rotationLists: []
   urlFilter: {}
-  sessionUser: {}
 
   requesting: { type: null, status: false }
 
@@ -57,7 +56,4 @@ dispatcher.register (payload) ->
       item = _.find(AdxWrapperStore[payload.type], (e) -> e[payload.sourceKey] == payload.key)
       _.assign(item, payload.attributes)
       AdxWrapperStore.emitItemChange(item)
-      AdxWrapperStore.emitChange()
-    when 'sign-in-cookie-set'
-      AdxWrapperStore.sessionUser = payload.cookie
       AdxWrapperStore.emitChange()
