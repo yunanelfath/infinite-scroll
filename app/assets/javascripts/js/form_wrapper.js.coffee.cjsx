@@ -95,7 +95,7 @@ FormWrapper = React.createClass
               <div className="ad-detail">
                 <div className="upload-container">
                   <form enctype="multipart/form-data" method="post" action="upload.php" id="form-ad">
-                    <label className="btn btn-upload" for="uploadad" title="UPLOAD">
+                    <label className="btn btn-upload uploadad" title="UPLOAD">
                       <input type="file" className="hide" id="uploadad" name="uploadad" accept="image/*"/>UPLOAD
                     </label>
                     <input type="submit" value="SEND" className="hide" id="send-ad"/>
@@ -124,20 +124,20 @@ FormWrapper = React.createClass
                <div className="contact-form">
                    <form className="form-horizontal">
                       <div className="form-group">
-                         <label className="col-sm-2 control-label" for="email">Email</label>
+                         <label className="col-sm-2 control-label email">Email</label>
                          <div className="col-sm-10">
                             <input type="email" id="email" className="form-control"/>
                          </div>
                       </div>
                       <div className="form-group">
-                         <label className="col-sm-2 control-label" for="message">Message</label>
+                         <label className="col-sm-2 control-label message">Message</label>
                          <div className="col-sm-10">
                             <textarea className="form-control" rows="10" cols="30" id="" name=""></textarea>
                          </div>
                       </div>
                       <div className="form-group form-label">
                          <div className="col-sm-offset-2 col-sm-10">
-                            <label for="advertise">
+                            <label className="advertise">
                               <div className="icheckbox_minimal-grey" style={position: 'relative'}>
                                 <input type="checkbox" id="advertise" style={position: 'absolute',top: '-20%', left: '-20%',display: 'block',width: '140%',height: '140%', margin: '0px',padding: '0px', background: 'rgb(255, 255, 255)', border: '0px none',opacity: '0'}/>
                                 <ins className="iCheck-helper"
@@ -145,7 +145,7 @@ FormWrapper = React.createClass
                               </div>
                               <span>I want to advertise</span>
                             </label>
-                            <label for="screen">
+                            <label className="screen">
                               <div className="icheckbox_minimal-grey" style={position: 'relative'}>
                                 <input type="checkbox" id="screen"
                                   style={position: 'absolute',top: '-20%', left: '-20%',display: 'block',width: '140%',height: '140%', margin: '0px',padding: '0px', background: 'rgb(255, 255, 255)', border: '0px none',opacity: '0'}/>

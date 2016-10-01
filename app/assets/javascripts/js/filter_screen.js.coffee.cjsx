@@ -36,16 +36,19 @@ FilterScreen = React.createClass
       attributes: attr.attributes
     )
 
-  onBoxChecked: (e, wordingType, event) ->
-    type = if wordingType == 'TV Size' then "sizeLists" else if wordingType == 'Monitor Rotation' then "rotationLists" else "propertyTypeLists"
-    item = AdxWrapperStore.getFilterByKey(AdxWrapperStore[type], e.key)
+  onBoxChecked: (event) ->
+    element = $(ReactDOM.findDOMNode(event.target))
+    type = if element.attr('name') == 'TV Size' then "sizeLists" else if element.attr('name') == 'Monitor Rotation' then "rotationLists" else "propertyTypeLists"
+    obj = JSON.parse(element.attr('data-props'))
 
-    @_onChangeCheckBox(
-      type: type
-      attributes: checked: if item?.checked then !item?.checked else true
-      key: e.key
-      source: 'key'
-    )
+    item = AdxWrapperStore.getFilterByKey(AdxWrapperStore[type], obj?.key)
+    if item
+      @_onChangeCheckBox(
+        type: type
+        attributes: checked: if item?.checked then !item?.checked else true
+        key: item.key
+        source: 'key'
+      )
 
     setTimeout(=>
       @_setFilter()
@@ -95,8 +98,9 @@ FilterScreen = React.createClass
 
   checkBoxContainer: (items, wordingType)->
     _this = @
+    i = 1
     checkboxItemRow = (e)->
-      <div>
+      <div key={Number(i++)}>
         <label>
           <div onMouseLeave={_this.onMouseLeave}
             onMouseEnter={_this.onMouseEnter}
@@ -106,7 +110,9 @@ FilterScreen = React.createClass
             id="checkbox-minimal">
             <input type="checkbox"
               style={position: 'absolute',top: '-20%',left: '-20%',display: 'block',width: '140%',height: '140%',margin: '0px',padding: '0px',background: '#ffffff', border: '0px none',opacity: '0'}
-              onChange={_this.onBoxChecked.bind(@, e, wordingType)}
+              onChange={_this.onBoxChecked}
+              name="#{wordingType}"
+              data-props={JSON.stringify(e)}
               value={if e?.checked then e?.checked else false}/>
             <ins style={position: 'absolute',top: '-20%',left: '-20%',display: 'block',width: '140%',height: '140%',margin: '0',padding: '0',background: '#ffffff',border: '0px none',opacity: '0'}
               className="iCheck-helper"></ins>

@@ -3,10 +3,6 @@ var featuredScreenLoadRequest = function(){
   $.ajax({
     url: url,
     method: "GET",
-    headers: {
-      "Access-Control-Allow-Origin": "http://sandbox.10adx.com"
-    },
-    crossDomain: true,
     success: function(data){
       dispatcher.dispatch({
         actionType: 'featured-screen-set-items',
@@ -98,9 +94,6 @@ var filterDevices = function(obj){
   $.ajax({
     url: url,
     method: "GET",
-    beforeSend: function(){
-      debugger
-    },
     success: function(data){
       dispatcher.dispatch({
         actionType: 'featured-screen-set-items',

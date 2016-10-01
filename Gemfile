@@ -36,8 +36,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'coffee-script-source', '1.8.0' #http://stackoverflow.com/questions/28312460/object-doesnt-support-this-property-or-method-rails-windows-64bit
 
 # gem 'win32console' http://stackoverflow.com/questions/31092654/rake-aborted-loaderror-cannot-load-such-file
-
-gem 'react-rails' #https://github.com/reactjs/react-rails
+gem 'sprockets-rails', :require => 'sprockets/railtie'
+gem 'react-rails', github: 'dexcodeinc/react-rails'
 gem 'sprockets-coffee-react' # file cjsx
 
 gem 'js-routes'
