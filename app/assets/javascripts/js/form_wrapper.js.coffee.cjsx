@@ -6,113 +6,6 @@ FormWrapper = React.createClass
     defaultDetailImage: React.PropTypes.object
     learnMoreImage: React.PropTypes.object
   }
-  componentDidMount: ->
-    if @props.formType == 'detail'
-      $(ReactDOM.findDOMNode(@refs.dateAvailableForm)).find('#startDate').datepicker()
-      $(ReactDOM.findDOMNode(@refs.dateAvailableForm)).find('#endDate').datepicker()
-
-  dateAvailabelityForm: ->
-    <div className="container" ref="dateAvailableForm">
-      <div className="row">
-        <div className="col-sm-12">
-          <div className="page-av-table">
-            <div className="page-av-left">
-              <p className="p-relative">Pick start and end date for your ad:</p>
-            </div>
-            <div className="page-av-right">
-              <div className="form-group">
-                <label>START DATE</label>
-                <div className="has-input has-icon has-calendar">
-                  <input type="text" className="form-control" id="startDate" placeholder="Pick Date"/>
-                </div>
-              </div>
-              <div className="form-group">
-                <label>END DATE</label>
-                <div className="has-input has-icon has-calendar">
-                  <input type="text" className="form-control" id="endDate" placeholder="Pick Date"/>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="page-av-table">
-            <div className="page-av-left">
-              <p>There are unavailable date(s) based on your choice</p>
-            </div>
-            <div className="page-av-right">
-              <span className="date-availability">20 November 2016</span>
-              <span className="date-availability">20 November 2016</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  adsPaymentForm: ->
-    <div className="container">
-      <div className="row">
-        <div className="col-sm-12">
-          <div className="ad-payment-table">
-            <div className="payment-cell">
-              <h3>Payment Detail</h3>
-              <div className="box-payment">
-                <div className="row">
-                  <div className="col-sm-5 col-xs-6">Date(s) for your ad</div>
-                  <div className="col-sm-7 col-xs-6">1 September 2016 - 10 September 2016</div>
-                </div>
-                <div className="mb40"></div>
-                <div className="row">
-                  <div className="col-sm-5 col-xs-6">Days available</div>
-                  <div className="col-sm-7 col-xs-6">10 day(s)</div>
-                </div>
-                <div className="mb40"></div>
-                <div className="row">
-                  <div className="col-sm-5 col-xs-6">Date(s) not available </div>
-                  <div className="col-sm-7 col-xs-6">11 September 2016 - 12 September 2016</div>
-                </div>
-                <div className="mb40"></div>
-                <div className="row">
-                  <div className="col-sm-5 col-xs-6">
-                     Investment/day
-                  </div>
-                  <div className="col-sm-7 col-xs-6">
-                     Rp. 25.000/day
-                  </div>
-                </div>
-                <div className="line-1px"></div>
-                <div className="row">
-                  <div className="col-sm-5 col-xs-6">
-                     TOTAL PAYMENT
-                  </div>
-                  <div className="col-sm-7 col-xs-6">
-                     Rp. 250.000
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="arrow-cell"><i className="fa fa-angle-right"></i></div>
-            <div className="ad-cell">
-              <h3>Upload Your Ad</h3>
-              <div className="ad-detail">
-                <div className="upload-container">
-                  <form encType="multipart/form-data" method="post" action="upload.php" id="form-ad">
-                    <label className="btn btn-upload uploadad" title="UPLOAD">
-                      <input type="file" className="hide" id="uploadad" name="uploadad" accept="image/*"/>UPLOAD
-                    </label>
-                    <input type="submit" value="SEND" className="hide" id="send-ad"/>
-                  </form>
-                </div>
-                <p className="text-center mtb10"><small>Size : 1920 x 1080 pixels</small></p>
-                <div className="ad-display"><img src="http://placehold.it/350x220/843c0c/ffffff?text=Your+Ad"/></div>
-                <p className="text-center font-bold mtb10">Your Ad</p>
-              </div>
-            </div>
-          </div>
-          <div className="text-center mtb30">
-            <a className="btn btn-submit" href="javascript:void(0)">CONTINUE TO PAYMENT</a>
-          </div>
-        </div>
-      </div>
-    </div>
 
   contactUsForm: ->
     <div className="container">
@@ -323,6 +216,38 @@ FormWrapper = React.createClass
       </div>
     </div>
 
+  _onDeviceChanged: (attributes) ->
+    dispatcher.dispatch(
+      actionType: 'adx-global-attributes-setter'
+      attributes: attributes
+    )
+
+  onChangeInputFile: (event) ->
+    try
+      file = event.target.files[0]
+    catch e
+      return false
+
+    srcUrl = URL.createObjectURL(file)
+
+    $(ReactDOM.findDOMNode(@refs.adsPaymentForm)).find('.ad-detail').find('.ad-display img').attr('src',srcUrl)
+    params = AdxWrapperStore.deviceDetailContent
+    params.imageFile = file
+    @_onDeviceChanged(params)
+
+
+  onChangeStartDate: (event) ->
+    params = AdxWrapperStore.deviceDetailContent
+    if params?.startDate != event.target.value
+      params.startDate = event.target.value
+      @_onDeviceChanged(params)
+
+  onChangeEndDate: (event) ->
+    params = AdxWrapperStore.deviceDetailContent
+    if params?.endDate != event.target.value
+      params.endDate = event.target.value
+      @_onDeviceChanged(params)
+
   render: ->
     { headerImage, footerImage, formType } = @props
 
@@ -362,18 +287,12 @@ FormWrapper = React.createClass
           </div>
         else
           if formType == 'detail'
-            dateAvailabelityForm = @dateAvailabelityForm()
-            adsPaymentForm = @adsPaymentForm()
             <div className="content-screen">
               <div className="container">
                 <DetailDescription defaultDetailImage={@props.defaultDetailImage}/>
               </div>
-              <div className="page-availability">
-                {dateAvailabelityForm}
-              </div>
-              <div className="ads-payment">
-                {adsPaymentForm}
-              </div>
+              <DateAvailablelityForm onChangeEndDate={@onChangeEndDate} onChangeStartDate={@onChangeStartDate}/>
+              <AdsPaymentForm ref="adsPaymentForm" onSubmitForm={@onSubmitForm} onChangeInputFile={@onChangeInputFile}/>
             </div>
           else
             <div className="content-screen">

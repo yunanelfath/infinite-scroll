@@ -13,6 +13,7 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
+//= require jquery.form
 //= require turbolinks
 //= require react
 //= require react-server
@@ -30,6 +31,8 @@
 //= require js/form_wrapper
 //= require js/filter_screen
 //= require js/detail_description
+//= require js/date_availablelity_form
+//= require js/ads_payment_form
 //= require js/signup_form
 //= require js/signin_form
 //= require js/header_adx

@@ -148,6 +148,28 @@ var getDeviceDetailImage = function(id, token){
           actionType: 'adx-global-attributes-setter',
           attributes: {deviceDetailContent: params}
         })
+        getUnavailableDate(id, token)
+      },
+    })
+  }
+}
+
+var getUnavailableDate = function(id, token){
+  var dateNow = new Date()
+  var dateMonth = dateNow.getMonth()
+  if(dateNow.getMonth().toString().length === 1){
+    dateMonth = "0"+dateNow.getMonth();
+  }
+  var url = "https://sandbox.10adx.com/api/device/"+id+"/unavailable-dates/"+dateMonth+"/"+dateNow.getUTCFullYear()+"/?"+$.param({format: 'json'})
+  if(token){
+    $.ajax({
+      url: url,
+      method: "GET",
+      headers: {
+        "Authorization": JSON.parse(token).token
+      },
+      success: function(data){
+
       },
     })
   }

@@ -28,7 +28,7 @@ DetailDescription = React.createClass
     else
       _this = @
       imageRowComponents = (e) ->
-        <div className="col-sm-6"><img src={if e?.thumbnail_100 then e?.thumbnail_100 else _this.props.defaultDetailImage.item} className="image-responsive"/></div>
+        <div className="col-sm-6" key={e.id}><img src={if e?.thumbnail_100 then e?.thumbnail_100 else _this.props.defaultDetailImage.item} className="image-responsive"/></div>
       <div className="row">
         <div className="col-sm-12">
           <div className="page-wrap">
