@@ -43,8 +43,13 @@ FeatureRowItem = React.createClass
       attributes: deviceDetailId: @props.data.pub_id
     )
     setTimeout(=>
-      Turbolinks.visit('detail')
-    ,800)
+      token = getCookie('___adxLoginToken')
+      if token
+        Turbolinks.visit('detail')
+      else
+        alert('you have to login first')
+        Turbolinks.visit('sign-in')
+    ,200)
 
   render: ->
     {data, featuredIcon} = @props
