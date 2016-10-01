@@ -91,7 +91,7 @@ FilterScreen = React.createClass
     if cityLists.length > 0
       params.city = cityLists.join(",")
     if rotationLists.length > 0
-      params.rotation = rotation.join(",")
+      params.rotation = rotationLists.join(",")
     params.max_price = 24000
     params.min_price = 0
     filterDevices(params)

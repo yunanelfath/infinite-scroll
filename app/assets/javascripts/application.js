@@ -42,5 +42,3 @@
 //= require js/stores/api_store
 //= require js/main
 //= require owl.carousel.min
-
-//= require_tree .
