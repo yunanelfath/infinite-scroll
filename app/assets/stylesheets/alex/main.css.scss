@@ -492,7 +492,7 @@ body {
   position: relative; }
 
 .has-calendar .form-control {
-  background-image: url("../img/icon/calendar.png");
+  background-image: url(asset-path('img/icon/calendar.png'));
   background-repeat: no-repeat;
   background-size: 15px 15px;
   background-position: 96%; }

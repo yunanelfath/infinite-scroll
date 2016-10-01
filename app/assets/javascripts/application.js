@@ -11,11 +11,14 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
 //= require react
 //= require react-server
 //= require react_ujs
+//= require react_bootstrap
+//= require bootstrap-datepicker
 // flux config
 //= require lodash
 //= require flux

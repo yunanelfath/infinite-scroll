@@ -50,6 +50,9 @@ gem 'slim-rails' # html.slim
 
 gem 'flux-rails'
 
+gem 'react-bootstrap-rails'
+gem 'bootstrap-datepicker-rails'
+
 gem 'modernizr-rails', '~> 2.7', '>= 2.7.1'
 
 group :development, :test do

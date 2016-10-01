@@ -1,8 +1,12 @@
-var featuredScreenLoadRequest = function (){
+var featuredScreenLoadRequest = function(){
   var url = "https://sandbox.10adx.com/api/devices/featured/?format=json"
   $.ajax({
     url: url,
     method: "GET",
+    headers: {
+      "Access-Control-Allow-Origin": "http://sandbox.10adx.com"
+    },
+    crossDomain: true,
     success: function(data){
       dispatcher.dispatch({
         actionType: 'featured-screen-set-items',
@@ -11,17 +15,18 @@ var featuredScreenLoadRequest = function (){
     },
   })
 }
-var deviceListLoadRequest = function (){
+var deviceListLoadRequest = function(){
   var url = "https://sandbox.10adx.com/api/devices/?format=json"
   $.ajax({
     url: url,
     method: "GET",
+    crossDomain: true,
     success: function(data){
       dispatcher.dispatch({
         actionType: 'featured-screen-set-items',
         items: data.results
       })
-    },
+    }
   })
 }
 
@@ -86,7 +91,7 @@ var cityListLoadRequest = function(){
   })
 }
 
-var filterDevices = function(obj = {}){
+var filterDevices = function(obj){
   obj.format = "json"
   params = $.param(obj)
   var url = "https://sandbox.10adx.com/api/devices/?"+params
