@@ -44,4 +44,4 @@
 //= require js/stores/adx_wrapper_store
 //= require js/stores/api_store
 //= require js/main
-//= require owl.carousel.min
+//= require js/owl.carousel.min
