@@ -1,3 +1,9 @@
+{ OverlayTrigger, Tooltip } = ReactBootstrap
+toCurrencyRp = (num) ->
+  return 'Rp. 0.0' if num == null || num == undefined
+  num = Number(Math.round(num + 'e2') + 'e-2')
+  "Rp. #{num.toLocaleString('en-US')}"
+
 featuredScreenState = ->
   {
     items: AdxWrapperStore.deviceListsFeatured
@@ -54,6 +60,9 @@ FeatureRowItem = React.createClass
   render: ->
     {data, featuredIcon} = @props
 
+    employeesTooltip = <Tooltip id="employees-tooltip-#{data.pub_id}">People/day</Tooltip>
+    monitorTooltip = <Tooltip id="people-tooltip-#{data.pub_id}">Landscape Monitor</Tooltip>
+
     <div className="col-sm-4">
       <div className="box-screen">
         <div className="box-img">
@@ -65,15 +74,19 @@ FeatureRowItem = React.createClass
           </h3>
 
           <div className="capacity">
-            <span>
-              <img src={featuredIcon.employees}/>
-              200-2000
-            </span>
+            <OverlayTrigger placement="top" overlay={employeesTooltip}>
+              <span>
+                <img src={featuredIcon.employees}/>
+                200-2000
+              </span>
+            </OverlayTrigger>
           </div>
           <div className="feature">
-            <span>
-              <img src={featuredIcon.tv} alt="#{data.pub_id}"/>Landscape
-            </span>
+            <OverlayTrigger placement="top" overlay={monitorTooltip}>
+              <span>
+                <img src={featuredIcon.tv} alt="#{data.pub_id}"/>Landscape
+              </span>
+            </OverlayTrigger>
           </div>
           <div className="clearfix"></div>
 
@@ -83,12 +96,12 @@ FeatureRowItem = React.createClass
           <span>{data.property_type}</span>
           <span style={fontSize: '16px'}>
             <span style={display: 'inline-block'}>Avg Spending Rp. </span>
-            <span style={display: 'inline-block'}>{Number(data.average_spending).toFixed(2)}</span>
+            <span style={display: 'inline-block'}>{toCurrencyRp(data.average_spending)}</span>
             <span style={display: 'inline-block'}>/person</span>
           </span>
           <span style={fontSize: '16px'}>
             <span style={display: 'inline-block'}>Price Rp.</span>
-            <span style={display: 'inline-block'}>{Number(data.price).toFixed(2)}</span>
+            <span style={display: 'inline-block'}>{toCurrencyRp(data.price)}</span>
           </span>
         </div>
       </div>
