@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'adxs#index'
+  root 'sales#index'
 
   get 'screens', to: 'adxs#screen'
   get 'learn-more', to: 'adxs#learn_more'
