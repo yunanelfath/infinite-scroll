@@ -68,12 +68,11 @@ FeatureRowItem = React.createClass
             <span>
               <img src={featuredIcon.employees}/>
               200-2000
-              <span className="people-day">people/day</span>
             </span>
           </div>
           <div className="feature">
             <span>
-              <img src={featuredIcon.tv} alt="#{data.pub_id}"/>Landscap Monitor
+              <img src={featuredIcon.tv} alt="#{data.pub_id}"/>Landscape
             </span>
           </div>
           <div className="clearfix"></div>
@@ -82,8 +81,15 @@ FeatureRowItem = React.createClass
         <div className="box-value">
           <span>{data.location}</span>
           <span>{data.property_type}</span>
-          <span>Avg Spending Rp. {Number(data.average_spending).toFixed(2)}/person</span>
-          <span>Price Rp.{Number(data.price).toFixed(2)}</span>
+          <span style={fontSize: '16px'}>
+            <span style={display: 'inline-block'}>Avg Spending Rp. </span>
+            <span style={display: 'inline-block'}>{Number(data.average_spending).toFixed(2)}</span>
+            <span style={display: 'inline-block'}>/person</span>
+          </span>
+          <span style={fontSize: '16px'}>
+            <span style={display: 'inline-block'}>Price Rp.</span>
+            <span style={display: 'inline-block'}>{Number(data.price).toFixed(2)}</span>
+          </span>
         </div>
       </div>
     </div>

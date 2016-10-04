@@ -44,7 +44,7 @@ IntroScreen = React.createClass
   render: ->
     <div className="intro-screen text-center">
       <img src={@props.icon}/>
-      <p>Choose the most suitable screen for your ads. Start from Rp. 15.000/day</p>
+      <p>Choose the most suitable screen for your ads. Start from Rp. 5000/day</p>
     </div>
 
 window.ScreenWrapper = ScreenWrapper
