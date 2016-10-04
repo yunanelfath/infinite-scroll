@@ -1,4 +1,25 @@
 HeaderSaleStock = React.createClass
+  PropTypes: {
+    onShowForm: React.PropTypes.func
+  }
+
+  onToggleNavbar: ->
+    if $(ReactDOM.findDOMNode(this)).find('.navbar-toggle').is(':visible')
+      $(ReactDOM.findDOMNode(this)).find('.navbar-toggle').trigger('click')
+
+  onApplicationClick: ->
+    @props.onShowForm('application')
+    @onToggleNavbar()
+
+
+  onAboutMeClick: ->
+    @props.onShowForm('about me')
+    @onToggleNavbar()
+
+  onHomeClick: ->
+    @props.onShowForm('home')
+    @onToggleNavbar()
+
   render: ->
     <header className="navbar navbar-default navbar-fixed-top">
       <div className="container">
@@ -10,13 +31,13 @@ HeaderSaleStock = React.createClass
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          <a className="navbar-brand" href="javascript:void(0)">UX Designer</a>
+          <a className="navbar-brand" href="javascript:void(0)">UX FRONT END</a>
         </div>
         <div id="navbar" className="navbar-collapse collapse" style={height: '1px'}>
           <ul className="nav navbar-nav navbar-right">
-            <li><a href="javascript:void(0)">HOME</a></li>
-            <li><a href="javascript:void(0)">ABOUT ME</a></li>
-            <li><a href="javascript:void(0)">APPLICATION</a></li>
+            <li><a onClick={@onHomeClick} href="javascript:void(0)">HOME</a></li>
+            <li><a onClick={@onAboutMeClick} href="javascript:void(0)">ABOUT ME</a></li>
+            <li><a onClick={@onApplicationClick} href="javascript:void(0)">APPLICATION</a></li>
           </ul>
         </div>
       </div>
