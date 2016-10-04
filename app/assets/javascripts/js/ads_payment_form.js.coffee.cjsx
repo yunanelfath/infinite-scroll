@@ -91,10 +91,10 @@ AdsPaymentForm = React.createClass
       headers: {"Authorization": JSON.parse(token).token}
       beforeSubmit: (arr, form, options)->
       success: (data) ->
-        alert('your scheduled success to upload')
+        sweetAlert("Congratulations","Your request has been sent.","success")
         Turbolinks.visit('/')
       error: (a, i) ->
-        alert('failed')
+        sweetAlert("Fail","Something wrong!","error")
     )
 
   render: ->

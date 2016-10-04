@@ -40,7 +40,7 @@ SigninForm = React.createClass
       arrValidate.push("Your email can't be Blank.")
 
     if arrValidate.length > 0
-      alert("#{arrValidate.join(',')}")
+      sweetAlert("Fail","#{arrValidate.join(',')}","error")
       return false
 
     return true
@@ -55,6 +55,7 @@ SigninForm = React.createClass
         beforeSend: ->
           _this.onRequesting(requesting: status: true)
         success: (data) ->
+          sweetAlert("Congratulations!","Login Success","success")
           setCookie('___adxLoginToken', JSON.stringify({token: "Bearer #{data.token}", email: _this.state.email}))
           _this.setState(isLoggedIn: true)
           _this.onRequesting(requesting: status: false)
@@ -68,7 +69,7 @@ SigninForm = React.createClass
             arrValidate.push(jqXHR.responseJSON.non_field_errors)
 
           if arrValidate.length > 0
-            alert("#{arrValidate.join(',')}")
+            sweetAlert("Fail","#{arrValidate.join(',')}","error")
           _this.onRequesting(requesting: status: false)
 
   onRequesting: (attributes)->
@@ -84,7 +85,7 @@ SigninForm = React.createClass
       {
         if isCookieLogin || isLoggedIn
           <div>
-            <h2 className="title-account">Youve log on to your account</h2>
+            <h2 className="title-account">You have log on to your account</h2>
             <p className="note-account">
               <a href="/">Click here to return to our homepage</a>
             </p>

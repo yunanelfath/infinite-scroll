@@ -26,6 +26,7 @@
 //= require js/init_dispatcher
 //= require fbemitter
 //
+//= require sweetalert
 //= require js/adx_wrapper
 //= require js/screen_wrapper
 //= require js/form_wrapper

@@ -28,10 +28,10 @@
  *= require alex/minimal/purple
  *= require alex/minimal/red
  *= require alex/minimal/yellow
+ *= require sweetalert
  */
 
   //https://github.com/twbs/bootstrap-sass#bower-with-rails
   // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
   @import "bootstrap-sprockets";
   @import "bootstrap";
-  

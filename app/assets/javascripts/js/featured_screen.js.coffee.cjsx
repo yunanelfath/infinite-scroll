@@ -53,8 +53,19 @@ FeatureRowItem = React.createClass
       if token
         Turbolinks.visit('detail')
       else
-        alert('you have to login first')
-        Turbolinks.visit('sign-in')
+        swal(
+          {
+            title: 'You have to login first!'
+            text: 'You will not be able to view this feature.'
+            type: 'warning'
+            showCancelButton: true
+          }
+          (e) ->
+            if e
+              Turbolinks.visit('sign-in')
+            else
+              swal('Cancelled', "You can't access this feature.",'error')
+        )
     ,200)
 
   render: ->
