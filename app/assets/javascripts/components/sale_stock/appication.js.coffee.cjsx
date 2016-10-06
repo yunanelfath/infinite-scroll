@@ -29,38 +29,57 @@ ApplicationSaleStock = React.createClass
     )
 
   onNameChanged: (event) ->
-    @_dispatchChange(name: event.target.value)
+    @_dispatchChange(name: value: event.target.value, isRequired: false)
 
   onBuktiFotoOngkirChanged: (event) ->
     @_dispatchChange(buktiFotoOngkir: event.target.value)
 
   onEmailChanged: (event) ->
-    @_dispatchChange(email: event.target.value)
+    @_dispatchChange(email: value: event.target.value, isRequired: false)
 
   onHandphoneChanged: (event) ->
-    @_dispatchChange(handphone: event.target.value)
+    @_dispatchChange(handphone: value: event.target.value, isRequired: false)
 
   onOrderNumberChanged: (event) ->
-    @_dispatchChange(orderNumber: event.target.value)
+    @_dispatchChange(orderNumber: value: event.target.value, isRequired: false)
 
   onBiayarKirimBalikChanged: (event) ->
-    @_dispatchChange(biayaKirimBalik: event.target.value)
+    @_dispatchChange(biayaKirimBalik: value: event.target.value, isRequired: false)
 
   onKeteranganChanged: (event) ->
-    @_dispatchChange(keterangan: event.target.value)
+    @_dispatchChange(keterangan: value: event.target.value, isRequired: false)
+
+  onValidateForm: ->
+    { activeForm, form } = @state
+    if activeForm.current == 'data-sista'
+      requiredField = ['name', 'email']
+    else if activeForm.current == 'data-order'
+      requiredField = ['orderNumber']
+    arrBlock = []
+    for r in requiredField
+      if form[r] == undefined || form[r]?.value == null || form[r]?.value == ''
+        arrBlock.push(r)
+        form[r] = {value: null, isRequired: true}
+        @_dispatchChange(form)
+
+    return arrBlock
 
   onNextClick: ->
     { activeForm } = @state
-    backForm = null
-    if activeForm.current == 'data-sista'
-      nextForm = 'submitting-form'
-      current = 'data-order'
-      backForm = 'data-sista'
-    else if activeForm.current == 'data-order'
-      nextForm = null
-      current = 'submitting-form'
-      backForm = 'data-order'
-    @_dispatchChangeActiveForm(current: current, next: nextForm,back: backForm)
+    arrValidate = @onValidateForm()
+    if arrValidate.length > 0
+      return false
+    else
+      backForm = null
+      if activeForm.current == 'data-sista'
+        nextForm = 'submitting-form'
+        current = 'data-order'
+        backForm = 'data-sista'
+      else if activeForm.current == 'data-order'
+        nextForm = null
+        current = 'submitting-form'
+        backForm = 'data-order'
+      @_dispatchChangeActiveForm(current: current, next: nextForm,back: backForm)
 
   onBackClick: ->
     { activeForm } = @state
@@ -88,17 +107,17 @@ ApplicationSaleStock = React.createClass
           <div className="jumbotron" style={paddingTop: '10px'}>
             <legend>Data Sista</legend>
             <div className="bs-example">
-              <FormGroup>
+              <FormGroup className="#{if name?.isRequired then 'has-error' else ''}">
                 <label className="control-label">Nama Sista*</label>
-                <FormControl value={name} placeholder="Nama sista" onChange={@onNameChanged}/>
+                <FormControl value={name?.value} placeholder="Nama sista" onChange={@onNameChanged}/>
               </FormGroup>
-              <FormGroup>
+              <FormGroup className="#{if email?.isRequired then 'has-error' else ''}">
                 <label className="control-label">Email Sista*</label>
-                <FormControl value={email} placeholder="Email sista" onChange={@onEmailChanged}/>
+                <FormControl value={email?.value} placeholder="Email sista" onChange={@onEmailChanged}/>
               </FormGroup>
-              <FormGroup>
-                <label className="control-label">Handphone Sista*</label>
-                <FormControl value={handphone} placeholder="Handphone sista" onChange={@onHandphoneChanged}/>
+              <FormGroup className="#{if handphone?.isRequired then 'has-error' else ''}">
+                <label className="control-label">Handphone Sista</label>
+                <FormControl value={handphone?.value} placeholder="Handphone sista" onChange={@onHandphoneChanged}/>
               </FormGroup>
             </div>
           </div>
@@ -108,21 +127,21 @@ ApplicationSaleStock = React.createClass
           <div className="jumbotron" style={paddingTop: '10px'}>
             <legend>Data Order</legend>
             <div className="bs-example">
-              <FormGroup>
+              <FormGroup className="#{if orderNumber?.isRequired then 'has-error' else ''}">
                 <label className="control-label">Nomor Order</label>
-                <FormControl value={orderNumber} placeholder="Nomor Order" onChange={@onOrderNumberChanged}/>
+                <FormControl value={orderNumber?.value} placeholder="Nomor Order" onChange={@onOrderNumberChanged}/>
               </FormGroup>
-              <FormGroup>
+              <FormGroup className="#{if biayaKirimBalik?.isRequired then 'has-error' else ''}">
                 <label className="control-label">Biaya Kirim Balik</label>
-                <FormControl value={biayaKirimBalik} placeholder="Biaya Kirim Balik" onChange={@onBiayarKirimBalikChanged}/>
+                <FormControl value={biayaKirimBalik?.value} placeholder="Biaya Kirim Balik" onChange={@onBiayarKirimBalikChanged}/>
               </FormGroup>
-              <FormGroup>
+              <FormGroup className="#{if keterangan?.isRequired then 'has-error' else ''}">
                 <label className="control-label">Keterangan</label>
-                <textarea value={keterangan} placeholder="Keterangan" className="form-control" onChange={@onKeteranganChanged}></textarea>
+                <textarea value={keterangan?.value} placeholder="Keterangan" className="form-control" onChange={@onKeteranganChanged}></textarea>
               </FormGroup>
-              <FormGroup>
+              <FormGroup className="#{if buktiFotoOngkir?.isRequired then 'has-error' else ''}">
                 <label className="control-label">Bukti Foto Ongkir</label>
-                <FormControl value={buktiFotoOngkir} placeholder="Bukti Foto Ongkir" onChange={@onBuktiFotoOngkirChanged}/>
+                <FormControl value={buktiFotoOngkir?.value} placeholder="Bukti Foto Ongkir" onChange={@onBuktiFotoOngkirChanged}/>
               </FormGroup>
             </div>
           </div>
