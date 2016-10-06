@@ -11,11 +11,6 @@ HeaderSaleStock = React.createClass
     @props.onShowForm('application')
     @onToggleNavbar()
 
-
-  onAboutMeClick: ->
-    @props.onShowForm('about me')
-    @onToggleNavbar()
-
   onHomeClick: ->
     @props.onShowForm('home')
     @onToggleNavbar()
@@ -31,12 +26,11 @@ HeaderSaleStock = React.createClass
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          <a className="navbar-brand" href="javascript:void(0)">UX FRONT END</a>
+          <a className="navbar-brand" href="javascript:void(0)">UX DEVELOPER</a>
         </div>
         <div id="navbar" className="navbar-collapse collapse" style={height: '1px'}>
           <ul className="nav navbar-nav navbar-right">
             <li><a onClick={@onHomeClick} href="javascript:void(0)">HOME</a></li>
-            <li><a onClick={@onAboutMeClick} href="javascript:void(0)">ABOUT ME</a></li>
             <li><a onClick={@onApplicationClick} href="javascript:void(0)">APPLICATION</a></li>
           </ul>
         </div>

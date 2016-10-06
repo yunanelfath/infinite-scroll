@@ -1,5 +1,17 @@
 { Button, FormGroup, FormControl, Col, Row } = ReactBootstrap
 
+getOrders = ->
+  [
+    {id: 888, items: [{id: 32,alasan: '', name: 'Kiraniar Plain Casual Cardigan 1', sku: 'BMW-ANC', price: 85000, foto: {}},{id: 33,name: 'Kiraniar Plain Casual Cardigan 2', sku: 'BMW-ANC', price: 43000, foto: {}}]}
+    {id: 777, items: [{id: 32,alasan: '', name: 'Kiraniar Plain Casual Cardigan 1', sku: 'BMW-ANC', price: 85000, foto: {}},{id: 33,name: 'Kiraniar Plain Casual Cardigan 2', sku: 'BMW-ANC', price: 43000, foto: {}}]}
+    {id: 555, items: [{id: 32,alasan: '', name: 'Kiraniar Plain Casual Cardigan 1', sku: 'BMW-ANC', price: 85000, foto: {}},{id: 33,name: 'Kiraniar Plain Casual Cardigan 2', sku: 'BMW-ANC', price: 43000, foto: {}}]}
+  ]
+
+getAlasanRetur = ->
+  [
+    {id: 1, value: 'Bolong'},{id: 2, value: 'Jahitan Tidak Rapi'},{id: 3, value: 'Kebesaran'},{id: 4, value: 'Kekecilan'}
+  ]
+
 ApplicationSaleStock = React.createClass
   getInitialState: ->
     {
@@ -73,13 +85,13 @@ ApplicationSaleStock = React.createClass
     else
       backForm = null
       if activeForm.current == 'data-sista'
-        nextForm = 'submitting-form'
+        nextForm = 'data-order'
         current = 'data-order'
         backForm = 'data-sista'
       else if activeForm.current == 'data-order'
         nextForm = null
-        current = 'submitting-form'
-        backForm = 'data-order'
+        current = 'data-order'
+        backForm = 'data-sista'
       @_dispatchChangeActiveForm(current: current, next: nextForm,back: backForm)
 
   onBackClick: ->
@@ -95,12 +107,74 @@ ApplicationSaleStock = React.createClass
       backForm = 'data-order'
     @_dispatchChangeActiveForm(current: current, next: nextForm,back: backForm)
 
+  onResetOrder: ->
+    @_dispatchChange(orderNumber: value: null, isRequired: true, items: [])
 
+  onFindOrder: ->
+    { form } = @state
+    _this = @
+    items = _.find(getOrders(), (e) -> e.id == Number(form.orderNumber.value))
+    setTimeout(=>
+      if items
+        _this._dispatchChange(orderNumber: value: form.orderNumber.value, isRequired: false, items: items.items)
+      else
+        alert('No data found!')
+        _this._dispatchChange(orderNumber: value: null, isRequired: true, items: [])
+    ,1000)
 
+  onSubmitForm: ->
+    { activeForm } = @state
+    arrValidate = @onValidateForm()
+    if arrValidate.length > 0
+      alert(arrValidate.join(", "))
+      return false
+    else
+      alert('your request has been sent')
+      dispatcher.dispatch(
+        actionType: 'sale-stock-global-attributes-setter'
+        attributes: contentType: 'home', form: {}
+      )
+      @_dispatchChangeActiveForm(current: 'data-sista', next: 'data-order',back: null)
 
   render: ->
     { form, activeForm } = @state
     { name, email, handphone, orderNumber, biayaKirimBalik, keterangan, buktiFotoOngkir } = form
+
+    tableItemOrderRow = (data) ->
+      setOptionRow = (data) ->
+        <option key={data.id} value="#{data.value}">{data.value}</option>
+      <table className="table" style={borderLeft: "1px solid #dddddd",borderRight: "1px solid #dddddd"}>
+        <tbody>
+          <tr>
+            <td colSpan={3}>
+              <div style={fontWeight: 'bold', fontSize: '12px'}>{data.name}</div>
+              <div style={color: '#808080', fontSize: '0.8em',fontStyle: 'italic'}>Nama Item</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <select value={data.alasan} onChange={@onBlurSelect} className="form-control" placeholder="select" style={paddingLeft: '3px'}>
+                {getAlasanRetur().map(setOptionRow)}
+              </select>
+              <div style={color: '#808080',fontStyle: 'italic',fontSize: '0.8em'}>Alasan Retur</div>
+            </td>
+            <td>
+              {data.sku}
+              <div style={color: '#808080',fontStyle: 'italic',fontSize: '0.8em'}>SKU</div>
+            </td>
+            <td>
+              {data.price}
+              <div style={color: '#808080',fontStyle: 'italic',fontSize: '0.8em'}>Harga Satuan</div>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={3}>
+              <input type="file" value={data.foto?.value} onChange={@onChangeFile} className="form-control" style={padding: '0'}/>
+              <div style={color: '#808080', fontSize: '0.8em',fontStyle: 'italic'}>Bukti Foto</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
     <div className="container">
       {
@@ -130,8 +204,14 @@ ApplicationSaleStock = React.createClass
             <div className="bs-example">
               <FormGroup className="#{if orderNumber?.isRequired then 'has-error' else ''}">
                 <label className="control-label">Nomor Order</label>
-                <FormControl value={orderNumber?.value} placeholder="Nomor Order" onChange={@onOrderNumberChanged}/>
+                <FormControl id="order_number" value={orderNumber?.value} placeholder="Nomor Order" onChange={@onOrderNumberChanged}/>
+                <Button className="btn btn-primary" style={marginTop: '4px'} onClick={@onFindOrder}>Load</Button>
+                <Button className="btn btn-danger" style={marginTop: '4px', marginLeft: '5px'} onClick={@onResetOrder}>Reset</Button>
               </FormGroup>
+              {
+                if orderNumber?.items && orderNumber?.items.length > 0
+                  <FormGroup>{orderNumber?.items.map(tableItemOrderRow)}</FormGroup>
+              }
               <FormGroup className="#{if biayaKirimBalik?.isRequired then 'has-error' else ''}">
                 <label className="control-label">Biaya Kirim Balik</label>
                 <FormControl value={biayaKirimBalik?.value} placeholder="Biaya Kirim Balik" onChange={@onBiayarKirimBalikChanged}/>
@@ -142,7 +222,7 @@ ApplicationSaleStock = React.createClass
               </FormGroup>
               <FormGroup className="#{if buktiFotoOngkir?.isRequired then 'has-error' else ''}">
                 <label className="control-label">Bukti Foto Ongkir</label>
-                <FormControl value={buktiFotoOngkir?.value} placeholder="Bukti Foto Ongkir" onChange={@onBuktiFotoOngkirChanged}/>
+                <input type="file" value={buktiFotoOngkir?.value} className="form-control" style={padding: '0'} onChange={@onBuktiFotoOngkirChanged}/>
               </FormGroup>
             </div>
           </div>
@@ -151,12 +231,12 @@ ApplicationSaleStock = React.createClass
       <div className="navbar navbar-default navbar-fixed-bottom">
         <div className="container" style={paddingTop: '8px'}>
           {
-            if $.inArray(activeForm.current, ["data-order","submitting-form"]) >= 0
+            if $.inArray(activeForm.current, ["data-order"]) >= 0
               <Button className="btn btn-primary pull-left" onClick={@onBackClick}>« Back</Button>
           }
           {
-            if activeForm.current == 'submitting-form'
-              <Button className="btn btn-success pull-right">Submit</Button>
+            if activeForm.current == 'data-order'
+              <Button className="btn btn-success pull-right" onClick={@onSubmitForm}>Submit</Button>
             else
               <Button className="btn btn-success pull-right" onClick={@onNextClick}>Next »</Button>
           }

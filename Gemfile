@@ -52,6 +52,7 @@ gem 'flux-rails'
 
 gem 'react-bootstrap-rails'
 gem 'bootstrap-datepicker-rails'
+gem 'twitter-typeahead-rails'
 
 gem 'modernizr-rails', '~> 2.7', '>= 2.7.1'
 

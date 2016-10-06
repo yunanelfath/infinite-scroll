@@ -30,8 +30,6 @@ WrapperSaleStock = React.createClass
       {
         if contentType == 'application'
           <ApplicationSaleStock />
-        else if contentType == 'about me'
-          <AboutMeSaleStock />
         else
           <ContentSaleStock onShowForm={@onClickForm}/>
       }

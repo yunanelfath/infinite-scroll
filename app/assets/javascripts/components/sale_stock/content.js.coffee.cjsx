@@ -12,17 +12,10 @@ ContentSaleStock = React.createClass
   render: ->
     <div className="container">
       <div className="jumbotron">
-        <h1>Application Form</h1>
-        <p>To see the difference between static and fixed top navbars, just scroll.</p>
+        <h1>Retur Form</h1>
+        <p>Input your retur request to us with fill this form below.</p>
         <p>
           <a onClick={@onApplicationClick} role="button" href="javascript:void(0)" className="btn btn-lg btn-primary">Application Form »</a>
-        </p>
-      </div>
-      <div className="jumbotron">
-        <h1>About me</h1>
-        <p>To see the difference between static and fixed top navbars, just scroll.</p>
-        <p>
-          <a onClick={@onAboutMeClick} role="button" href="javascript:void(0)" className="btn btn-lg btn-primary">Application Form »</a>
         </p>
       </div>
     </div>
