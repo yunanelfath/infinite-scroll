@@ -52,14 +52,14 @@ ApplicationSaleStock = React.createClass
   onValidateForm: ->
     { activeForm, form } = @state
     if activeForm.current == 'data-sista'
-      requiredField = ['name', 'email']
+      requiredField = [{id: 'name',message: "Name can't be blank"}, {id: 'email',message: "Email can't be blank"}]
     else if activeForm.current == 'data-order'
-      requiredField = ['orderNumber']
+      requiredField = [{id: 'orderNumber',message: "Order Number can't be blank"}]
     arrBlock = []
     for r in requiredField
-      if form[r] == undefined || form[r]?.value == null || form[r]?.value == ''
-        arrBlock.push(r)
-        form[r] = {value: null, isRequired: true}
+      if form[r.id] == undefined || form[r.id]?.value == null || form[r.id]?.value == ''
+        arrBlock.push(r.message)
+        form[r.id] = {value: null, isRequired: true}
         @_dispatchChange(form)
 
     return arrBlock
@@ -68,6 +68,7 @@ ApplicationSaleStock = React.createClass
     { activeForm } = @state
     arrValidate = @onValidateForm()
     if arrValidate.length > 0
+      alert(arrValidate.join(", "))
       return false
     else
       backForm = null
