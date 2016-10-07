@@ -956,3 +956,9 @@
     margin-left: 6px; }
     .menu-bottom .menu-social a.ml10 {
       margin-left: 6px; } }
+.navbar-override-hover > li > a{
+  color: #fff !important;
+}
+.navbar-override-hover > li > a:hover, .navbar-override-hover > li > a:focus{
+  background-color: transparent !important;
+}

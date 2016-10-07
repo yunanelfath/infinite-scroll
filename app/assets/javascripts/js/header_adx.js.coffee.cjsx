@@ -19,7 +19,7 @@ HeaderAdx = React.createClass
 
   _onLoggedIn: ->
     token = getCookie('___adxLoginToken')
-    @setState(loggedIn: if token then true else false)
+    @setState(loggedIn: if token then {status: true, email: token?.email} else false)
 
   _onChange: ->
     @setState(requesting: AdxWrapperStore.requesting)
@@ -30,12 +30,12 @@ HeaderAdx = React.createClass
 
   render: ->
     { headerImage } = @props
-    { requesting, loggedIn } = @state
+    { requesting, loggedIn, desktopView } = @state
     { adxLogo, signUpLogo } = headerImage
 
     <div>
       <div className="header-adx">
-        <div className="container">
+        <div className="container hidden-sm hidden-xs">
           <div className="row">
             <div className="col-sm-4">
               <div className="logo-adx">
@@ -49,11 +49,45 @@ HeaderAdx = React.createClass
                   <a href="/learn-more" data-remote={false}>Learn More</a>
                 </div>
                 <div className="menu-action">
-                  <a href="/sign-up" data-remote={false}><img src="#{signUpLogo}" style={marginRight: '15px'}/>Sign Up</a>
+                  {
+                    if loggedIn
+                      <a style={overflow: 'hidden',textOverflow: 'ellipsis', whiteSpace: 'nowrap', width: '185px'} href="javascript:void(0)" data-remote={false}><img src="#{signUpLogo}" style={marginRight: '15px'}/>{loggedIn?.email}</a>
+                    else
+                      <a href="/sign-up" data-remote={false}><img src="#{signUpLogo}" style={marginRight: '15px'}/>Sign Up</a>
+                  }
                   <a href={if loggedIn then "javascript:void(0)" else "/sign-in"} onClick={@onLogoutClick} className="login" data-remote={false}>{if loggedIn then 'Log out' else 'Log in'}</a>
                 </div>
                 <div className="clearfix"></div></div>
             </div>
+          </div>
+        </div>
+        <div className="container hidden-md hidden-lg">
+          <div className="navbar-header">
+            <a href="javascript:void(0)"><img style={width: '45%',marginLeft: '10px', marginTop: '5px'} src="#{adxLogo}"/></a>
+            <button style={background: '#fff'} className="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" aria-controls="navbar" aria-expanded="false">
+              <span className="glyphicon glyphicon-chevron-down"></span>
+            </button>
+          </div>
+          <div id="navbar" className="navbar-collapse collapse" style={height: '1px'}>
+            <ul className="nav navbar-nav navbar-right navbar-override-hover">
+              <li>
+                <a href="/screens">SCREEN</a>
+              </li>
+              <li>
+                <a href="/learn-more">LEARN MORE</a>
+              </li>
+              <li>
+                {
+                  if loggedIn
+                    <a href="javascript:void(0)">loggedIn?.email</a>
+                  else
+                    <a href="/sign-up">SIGN UP</a>
+                }
+              </li>
+              <li>
+                <a href="/sign-in">LOGIN</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
