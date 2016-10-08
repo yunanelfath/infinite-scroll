@@ -19,6 +19,7 @@ window.AdxWrapperStore = _.assign(new EventEmitter(), {
   deviceDetailContent: {}
 
   requesting: { type: null, status: false }
+  isLoggedIn: {status: false, email: null}
 
   getFilterByKey: (array, key) ->
     _.find(array, (e) -> e.key == key)

@@ -3,9 +3,9 @@ SigninForm = React.createClass
     {
       email: ''
       password: ''
-      isCookieLogin: JSON.parse(getCookie('___adxLoginToken'))
       isLoggedIn: false
       requesting: AdxWrapperStore.requesting
+      isLoggedIn: AdxWrapperStore.isLoggedIn
     }
 
 
@@ -16,7 +16,7 @@ SigninForm = React.createClass
     @listener.remove()
 
   _onChange: ->
-    @setState(isCookieLogin: JSON.parse(getCookie('___adxLoginToken')),requesting: AdxWrapperStore.requesting)
+    @setState(requesting: AdxWrapperStore.requesting,isLoggedIn: AdxWrapperStore.isLoggedIn)
 
   onChangePassword: (event) ->
     @setState(password: event.target.value)
@@ -49,7 +49,7 @@ SigninForm = React.createClass
     _this = @
     if @onValidateFormClientSide()
       $.ajax
-        url: "https://sandbox.10adx.com/api/token-auth/"
+        url: "http://sandbox.10adx.com/api/token-auth/"
         data: email: _this.state.email, password: _this.state.password
         method: "POST"
         beforeSend: ->
@@ -58,7 +58,7 @@ SigninForm = React.createClass
           sweetAlert("Congratulations!","Login Success","success")
           setCookie('___adxLoginToken', JSON.stringify({token: "Bearer #{data.token}", email: _this.state.email}))
           _this.setState(isLoggedIn: true)
-          _this.onRequesting(requesting: status: false)
+          _this.onRequesting(isLoggedIn: {status: true, email: _this.state.email}, requesting: status: false)
         error: (jqXHR, error) ->
           arrValidate = []
           if jqXHR.responseJSON.email
@@ -79,11 +79,11 @@ SigninForm = React.createClass
     )
 
   render: ->
-    { email, password, isCookieLogin, isLoggedIn } = @state
+    { email, password, isLoggedIn } = @state
 
     <div className="account-container">
       {
-        if isCookieLogin || isLoggedIn
+        if isLoggedIn?.status
           <div>
             <h2 className="title-account">You have log on to your account</h2>
             <p className="note-account">

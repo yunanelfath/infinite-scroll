@@ -1,5 +1,5 @@
 var featuredScreenLoadRequest = function(){
-  var url = "https://sandbox.10adx.com/api/devices/featured/?format=json"
+  var url = "http://sandbox.10adx.com/api/devices/featured/?format=json"
   $.ajax({
     url: url,
     method: "GET",
@@ -12,7 +12,7 @@ var featuredScreenLoadRequest = function(){
   })
 }
 var deviceListLoadRequest = function(){
-  var url = "https://sandbox.10adx.com/api/devices/?format=json"
+  var url = "http://sandbox.10adx.com/api/devices/?format=json"
   $.ajax({
     url: url,
     method: "GET",
@@ -27,7 +27,7 @@ var deviceListLoadRequest = function(){
 }
 
 var propertyTypeLoadRequest = function(){
-  var url = "https://sandbox.10adx.com/api/devices/filter/property_type/?format=json"
+  var url = "http://sandbox.10adx.com/api/devices/filter/property_type/?format=json"
   $.ajax({
     url: url,
     method: "GET",
@@ -43,7 +43,7 @@ var propertyTypeLoadRequest = function(){
   })
 }
 var rotationListLoadRequest = function(){
-  var url = "https://sandbox.10adx.com/api/devices/filter/rotation/?format=json"
+  var url = "http://sandbox.10adx.com/api/devices/filter/rotation/?format=json"
   $.ajax({
     url: url,
     method: "GET",
@@ -58,7 +58,7 @@ var rotationListLoadRequest = function(){
 }
 
 var sizeListLoadRequest = function(){
-  var url = "https://sandbox.10adx.com/api/devices/filter/size/?format=json"
+  var url = "http://sandbox.10adx.com/api/devices/filter/size/?format=json"
   $.ajax({
     url: url,
     method: "GET",
@@ -73,7 +73,7 @@ var sizeListLoadRequest = function(){
 }
 
 var cityListLoadRequest = function(){
-  var url = "https://sandbox.10adx.com/api/cities/?format=json"
+  var url = "http://sandbox.10adx.com/api/cities/?format=json"
   $.ajax({
     url: url,
     method: "GET",
@@ -90,7 +90,7 @@ var cityListLoadRequest = function(){
 var filterDevices = function(obj){
   obj.format = "json"
   params = $.param(obj)
-  var url = "https://sandbox.10adx.com/api/devices/?"+params
+  var url = "http://sandbox.10adx.com/api/devices/?"+params
   $.ajax({
     url: url,
     method: "GET",
@@ -106,7 +106,7 @@ var filterDevices = function(obj){
 
 var getDeviceDetail = function(stringId){
   if(stringId){
-    var url = "https://sandbox.10adx.com/api/device/"+stringId+"/?"+$.param({format: 'json'})
+    var url = "http://sandbox.10adx.com/api/device/"+stringId+"/?"+$.param({format: 'json'})
     var token = getCookie('___adxLoginToken')
     if(token){
       $.ajax({
@@ -133,7 +133,7 @@ var getDeviceDetail = function(stringId){
 }
 
 var getDeviceDetailImage = function(id, token){
-  var url = "https://sandbox.10adx.com/api/device/"+id+"/images/?"+$.param({format: 'json'})
+  var url = "http://sandbox.10adx.com/api/device/"+id+"/images/?"+$.param({format: 'json'})
   if(token){
     $.ajax({
       url: url,
@@ -160,7 +160,7 @@ var getUnavailableDate = function(id, token){
   if(dateNow.getMonth().toString().length === 1){
     dateMonth = "0"+dateNow.getMonth();
   }
-  var url = "https://sandbox.10adx.com/api/device/"+id+"/unavailable-dates/"+dateMonth+"/"+dateNow.getUTCFullYear()+"/?"+$.param({format: 'json'})
+  var url = "http://sandbox.10adx.com/api/device/"+id+"/unavailable-dates/"+dateMonth+"/"+dateNow.getUTCFullYear()+"/?"+$.param({format: 'json'})
   if(token){
     $.ajax({
       url: url,
@@ -188,4 +188,20 @@ var  getCookie = function(key) {
 
 var eraseCookie= function(name) {
     setCookie(name, "", -1);
+}
+
+var checkIsLoggedIn = function(){
+  cookie = getCookie('___adxLoginToken');
+  if(cookie && cookie != ""){
+    token = JSON.parse(cookie)
+    dispatcher.dispatch({
+      actionType: 'adx-global-attributes-setter',
+      attributes: {isLoggedIn: {status: true, email: token.email}}
+    })
+  }else{
+    dispatcher.dispatch({
+      actionType: 'adx-global-attributes-setter',
+      attributes: {isLoggedIn: {status: false, email: null}}
+    })
+  }
 }

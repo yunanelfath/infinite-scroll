@@ -6,31 +6,31 @@ HeaderAdx = React.createClass
   getInitialState: ->
     {
       requesting: AdxWrapperStore.requesting
-      loggedIn: false
+      isLoggedIn: AdxWrapperStore.isLoggedIn
     }
 
   componentDidMount: ->
     @listener = AdxWrapperStore.addChangeListener(@_onChange)
-    @listener2 = @_onLoggedIn()
 
   componentWillUnmount: ->
     @listener.remove()
-    @listener2.remove()
-
-  _onLoggedIn: ->
-    token = getCookie('___adxLoginToken')
-    @setState(loggedIn: if token then {status: true, email: token?.email} else false)
 
   _onChange: ->
-    @setState(requesting: AdxWrapperStore.requesting)
+    @setState(requesting: AdxWrapperStore.requesting, isLoggedIn: AdxWrapperStore.isLoggedIn)
 
   onLogoutClick: ->
-    if @state.loggedIn
+    debugger
+    if @state.isLoggedIn
       eraseCookie('___adxLoginToken')
+      sweetAlert("Thanks","You successfully log out","success")
+      dispatcher.dispatch(
+        actionType: 'adx-global-attributes-setter'
+        attributes: {isLoggedIn: {status: false, email: null}}
+      )
 
   render: ->
     { headerImage } = @props
-    { requesting, loggedIn, desktopView } = @state
+    { requesting, isLoggedIn, desktopView } = @state
     { adxLogo, signUpLogo } = headerImage
 
     <div>
@@ -50,12 +50,17 @@ HeaderAdx = React.createClass
                 </div>
                 <div className="menu-action">
                   {
-                    if loggedIn
-                      <a style={overflow: 'hidden',textOverflow: 'ellipsis', whiteSpace: 'nowrap', width: '185px'} href="javascript:void(0)" data-remote={false}><img src="#{signUpLogo}" style={marginRight: '15px'}/>{loggedIn?.email}</a>
+                    if isLoggedIn?.status
+                      <div style={display: 'table'}>
+                        <a style={overflow: 'hidden',textOverflow: 'ellipsis', whiteSpace: 'nowrap', width: '185px'} href="javascript:void(0)" data-remote={false}><img src="#{signUpLogo}" style={marginRight: '15px'}/>{isLoggedIn?.email}</a>
+                        <a style={paddingTop: '0', display: 'table-cell', verticalAlign: 'middle'} href="javascript:void(0)" onClick={@onLogoutClick} className="login" data-remote={false}>Log out</a>
+                      </div>
                     else
-                      <a href="/sign-up" data-remote={false}><img src="#{signUpLogo}" style={marginRight: '15px'}/>Sign Up</a>
+                      <div style={display: 'table'}>
+                        <a href="/sign-up" data-remote={false}><img src="#{signUpLogo}" style={marginRight: '15px'}/>Sign Up</a>
+                        <a style={paddingTop: '0', display: 'table-cell', verticalAlign: 'middle'} href="/sign-in" className="login" data-remote={false}>Log in</a>
+                      </div>
                   }
-                  <a href={if loggedIn then "javascript:void(0)" else "/sign-in"} onClick={@onLogoutClick} className="login" data-remote={false}>{if loggedIn then 'Log out' else 'Log in'}</a>
                 </div>
                 <div className="clearfix"></div></div>
             </div>
@@ -78,7 +83,7 @@ HeaderAdx = React.createClass
               </li>
               <li>
                 {
-                  if loggedIn
+                  if isLoggedIn?.status
                     <a href="javascript:void(0)">loggedIn?.email</a>
                   else
                     <a href="/sign-up">SIGN UP</a>

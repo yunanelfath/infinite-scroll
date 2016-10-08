@@ -14,7 +14,6 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require jquery.form
-//= require turbolinks
 //= require react
 //= require react-server
 //= require react_ujs
