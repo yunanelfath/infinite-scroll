@@ -44,14 +44,13 @@ FeatureRowItem = React.createClass
   }
 
   onSetDetail: ->
-    dispatcher.dispatch(
-      actionType: 'adx-global-attributes-setter'
-      attributes: deviceDetailId: @props.data.pub_id
-    )
     setTimeout(=>
       token = getCookie('___adxLoginToken')
       if token
-        Turbolinks.visit('detail')
+        setCookie('___adxDetailIdToken', @props.data.pub_id)
+        setTimeout(=>
+          window.location.href = if window.location.href.match(".html") == null then "/detail/" else "detail.html"
+        ,900)
       else
         swal(
           {
@@ -62,7 +61,7 @@ FeatureRowItem = React.createClass
           }
           (e) ->
             if e
-              Turbolinks.visit('sign-in')
+              window.location.href = if window.location.href.match(".html") == null then "/sign-in" else "sign-in.html"
             else
               swal('Cancelled', "You can't access this feature.",'error')
         )

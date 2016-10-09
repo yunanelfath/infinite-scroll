@@ -127,7 +127,7 @@ var getDeviceDetail = function(stringId){
       })
     }else{
       alert('You have to login first.')
-      Turbolinks.visit('sign-in')
+      window.location.href = "/sign-in"
     }
   }
 }
@@ -178,7 +178,7 @@ var getUnavailableDate = function(id, token){
 var setCookie = function(key, value) {
     var expires = new Date();
     expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
-    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+    document.cookie = key + '=' + value + ';path=/;expires=' + expires.toUTCString();
 }
 
 var  getCookie = function(key) {
@@ -187,7 +187,7 @@ var  getCookie = function(key) {
 }
 
 var eraseCookie= function(name) {
-    setCookie(name, "", -1);
+    document.cookie = name + '=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
 var checkIsLoggedIn = function(){
@@ -202,6 +202,16 @@ var checkIsLoggedIn = function(){
     dispatcher.dispatch({
       actionType: 'adx-global-attributes-setter',
       attributes: {isLoggedIn: {status: false, email: null}}
+    })
+  }
+}
+
+var detailAuthentication = function(){
+  cookie = getCookie('___adxDetailIdToken');
+  if(cookie && cookie != ""){
+    dispatcher.dispatch({
+      actionType: 'adx-global-attributes-setter',
+      attributes: {deviceDetailId: cookie}
     })
   }
 }

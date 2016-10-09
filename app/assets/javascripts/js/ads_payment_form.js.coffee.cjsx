@@ -6,17 +6,17 @@ AdsPaymentForm = React.createClass
   getInitialState: ->
     {
       deviceDetailContent: AdxWrapperStore.deviceDetailContent
+      isLoggedIn: AdxWrapperStore.isLoggedIn
     }
 
   componentDidMount: ->
     @listener = AdxWrapperStore.addChangeListener(@_onChange)
-    @setAjaxFormSubmit()
 
   componentWillUnmount: ->
     @listener.remove()
 
   _onChange: ->
-    @setState(deviceDetailContent: AdxWrapperStore.deviceDetailContent)
+    @setState(deviceDetailContent: AdxWrapperStore.deviceDetailContent, isLoggedIn: AdxWrapperStore.isLoggedIn)
 
   adsPaymentForm: ->
     <div className="container">
@@ -85,34 +85,74 @@ AdsPaymentForm = React.createClass
       </div>
     </div>
 
-  setAjaxFormSubmit: (event) ->
+  setAjaxFormSubmit: (event)->
     token = getCookie('___adxLoginToken')
-    $(ReactDOM.findDOMNode(@)).find('#js-form-ad').ajaxForm(
-      headers: {"Authorization": JSON.parse(token).token}
-      beforeSubmit: (arr, form, options)->
-      success: (data) ->
-        sweetAlert("Congratulations","Your request has been sent.","success")
-        Turbolinks.visit('/')
-      error: (a, i) ->
-        sweetAlert("Fail","Something wrong!","error")
-    )
+
+    event.preventDefault()
+    event.stopPropagation()
+    if token
+      $(ReactDOM.findDOMNode(@)).find('#js-form-ad').ajaxSubmit(
+        headers: {"Authorization": JSON.parse(token).token}
+        beforeSubmit: (arrs, form, options)->
+          allowedRequired = ['image_raw', 'start','end']
+          arrValidate = []
+          for arr in arrs
+            if $.inArray(arr.name, allowedRequired) >= 0 && arr.value == ""
+              field = if $.inArray(arr.name, ["start", "end"]) >= 0 then "#{arr.name} date" else "Image File"
+              arrValidate.push("#{field} Can't be Blank!")
+          if arrValidate.length > 0
+            sweetAlert("Fail","#{arrValidate.join(', ')}","error")
+            return false
+        success: (data) ->
+          swal(
+            {
+              title: 'Congratulations'
+              text: 'Your request has been sent.'
+              type: 'success'
+            }
+            (e) ->
+              eraseCookie('___adxDetailIdToken')
+              setTimeout(=>
+                window.location.href = if window.location.href.match(".html") == null then "/" else "index.html"
+              ,800)
+          )
+        error: (a, i) ->
+          arrValidate = []
+          if a.status == 400
+            arrValidate = _.map(a.responseJSON, (e, i)-> "#{if i != 0 then i.toString().toUpperCase() else ''} #{e}")
+          else
+            arrValidate.push('Something wrong!')
+          sweetAlert("Fail","#{arrValidate.join(',')}","error")
+      )
 
   render: ->
+    { isLoggedIn } = @state
     { startDate, endDate, pub_id } = @state.deviceDetailContent
 
     adsPaymentForm = @adsPaymentForm()
     <div className="ads-payment">
-      <form
-          data-remote={true}
-          encType="multipart/form-data"
-          id="js-form-ad"
-          method="POST"
-          action="https://sandbox.10adx.com/advertisement/api/schedule/new/">
-        <input type="hidden" name='device' value={pub_id}/>
-        <input type="hidden" name='start' value={startDate}/>
-        <input type="hidden" name='end' value={endDate}/>
-        {adsPaymentForm}
-      </form>
+      {
+        if isLoggedIn?.status
+          <form
+              data-remote={true}
+              encType="multipart/form-data"
+              id="js-form-ad"
+              method="POST"
+              onSubmit={@setAjaxFormSubmit}
+              action="http://sandbox.10adx.com/advertisement/api/schedule/new/">
+            <input type="hidden" name='device' value={pub_id}/>
+            <input type="hidden" name='start' value={startDate}/>
+            <input type="hidden" name='end' value={endDate}/>
+            {adsPaymentForm}
+          </form>
+        else
+          <div className="account-container">
+            <h2 className="title-account">You have to login your account</h2>
+            <p className="note-account">
+              <a href="#{if window.location.href.match('.html') == null then '/sign-in' else 'sign-in.html'}">Click here to return Login</a>
+            </p>
+          </div>
+      }
     </div>
 
 window.AdsPaymentForm = AdsPaymentForm

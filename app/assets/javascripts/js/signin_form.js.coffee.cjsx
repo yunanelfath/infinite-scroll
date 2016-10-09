@@ -55,10 +55,17 @@ SigninForm = React.createClass
         beforeSend: ->
           _this.onRequesting(requesting: status: true)
         success: (data) ->
-          sweetAlert("Congratulations!","Login Success","success")
           setCookie('___adxLoginToken', JSON.stringify({token: "Bearer #{data.token}", email: _this.state.email}))
-          _this.setState(isLoggedIn: true)
-          _this.onRequesting(isLoggedIn: {status: true, email: _this.state.email}, requesting: status: false)
+          swal(
+            {
+              title: 'Congratulations'
+              text: 'Login Success'
+              type: 'success'
+            }
+            (e) ->
+              _this.setState(isLoggedIn: true)
+              _this.onRequesting(isLoggedIn: {status: true, email: _this.state.email}, requesting: status: false)
+          )
         error: (jqXHR, error) ->
           arrValidate = []
           if jqXHR.responseJSON.email
@@ -87,7 +94,7 @@ SigninForm = React.createClass
           <div>
             <h2 className="title-account">You have log on to your account</h2>
             <p className="note-account">
-              <a href="/">Click here to return to our homepage</a>
+              <a href="#{if window.location.href.match('.html') == null then '/' else 'index.html'}">Click here to return to our homepage</a>
             </p>
           </div>
         else

@@ -19,13 +19,23 @@ HeaderAdx = React.createClass
     @setState(requesting: AdxWrapperStore.requesting, isLoggedIn: AdxWrapperStore.isLoggedIn)
 
   onLogoutClick: ->
-    debugger
     if @state.isLoggedIn
       eraseCookie('___adxLoginToken')
-      sweetAlert("Thanks","You successfully log out","success")
-      dispatcher.dispatch(
-        actionType: 'adx-global-attributes-setter'
-        attributes: {isLoggedIn: {status: false, email: null}}
+      eraseCookie('___adxDetailIdToken')
+      swal(
+        {
+          title: 'Thanks'
+          text: 'You successfully log out'
+          type: 'success'
+        }
+        (e) ->
+          dispatcher.dispatch(
+            actionType: 'adx-global-attributes-setter'
+            attributes: {isLoggedIn: {status: false, email: null}}
+          )
+          setTimeout(=>
+            window.location.href = if window.location.href.match(".html") == null then "/" else "index.html"
+          ,800)
       )
 
   render: ->
@@ -33,20 +43,28 @@ HeaderAdx = React.createClass
     { requesting, isLoggedIn, desktopView } = @state
     { adxLogo, signUpLogo } = headerImage
 
+    headerUrl = {}
+    headerUrl.screens = if window.location.href.match(".html") == null then "/screens/" else "screens.html"
+    headerUrl.learnmore = if window.location.href.match(".html") == null then "/learn-more/" else "learn-more.html"
+    headerUrl.signup = if window.location.href.match(".html") == null then "/sign-up/" else "sign-up.html"
+    headerUrl.signin = if window.location.href.match(".html") == null then "/sign-in/" else "sign-in.html"
+    headerUrl.index = if window.location.href.match(".html") == null then "/" else "index.html"
+
+
     <div>
       <div className="header-adx">
         <div className="container hidden-sm hidden-xs">
           <div className="row">
             <div className="col-sm-4">
               <div className="logo-adx">
-                <a href="javascript:void(0)"><img src="#{adxLogo}"/></a>
+                <a href="#{headerUrl.index}"><img src="#{adxLogo}"/></a>
               </div>
             </div>
             <div className="col-sm-8">
               <div className="menu-top">
                 <div className="menu-user">
-                  <a href="/screens" data-remote={false}>Screen</a>
-                  <a href="/learn-more" data-remote={false}>Learn More</a>
+                  <a href="#{headerUrl.screens}" data-remote={false}>Screen</a>
+                  <a href="#{headerUrl.learnmore}" data-remote={false}>Learn More</a>
                 </div>
                 <div className="menu-action">
                   {
@@ -57,8 +75,8 @@ HeaderAdx = React.createClass
                       </div>
                     else
                       <div style={display: 'table'}>
-                        <a href="/sign-up" data-remote={false}><img src="#{signUpLogo}" style={marginRight: '15px'}/>Sign Up</a>
-                        <a style={paddingTop: '0', display: 'table-cell', verticalAlign: 'middle'} href="/sign-in" className="login" data-remote={false}>Log in</a>
+                        <a href="#{headerUrl.signup}" data-remote={false}><img src="#{signUpLogo}" style={marginRight: '15px'}/>Sign Up</a>
+                        <a style={paddingTop: '0', display: 'table-cell', verticalAlign: 'middle'} href="#{headerUrl.signin}" className="login" data-remote={false}>Log in</a>
                       </div>
                   }
                 </div>
@@ -68,7 +86,7 @@ HeaderAdx = React.createClass
         </div>
         <div className="container hidden-md hidden-lg">
           <div className="navbar-header">
-            <a href="javascript:void(0)"><img style={width: '45%',marginLeft: '10px', marginTop: '5px'} src="#{adxLogo}"/></a>
+            <a href="#{headerUrl.index}"><img style={width: '45%',marginLeft: '10px', marginTop: '5px'} src="#{adxLogo}"/></a>
             <button style={background: '#fff'} className="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" aria-controls="navbar" aria-expanded="false">
               <span className="glyphicon glyphicon-chevron-down"></span>
             </button>
@@ -76,22 +94,27 @@ HeaderAdx = React.createClass
           <div id="navbar" className="navbar-collapse collapse" style={height: '1px'}>
             <ul className="nav navbar-nav navbar-right navbar-override-hover">
               <li>
-                <a href="/screens">SCREEN</a>
+                <a href="#{headerUrl.screens}">SCREEN</a>
               </li>
               <li>
-                <a href="/learn-more">LEARN MORE</a>
+                <a href="#{headerUrl.learnmore}">LEARN MORE</a>
               </li>
-              <li>
-                {
-                  if isLoggedIn?.status
-                    <a href="javascript:void(0)">loggedIn?.email</a>
-                  else
-                    <a href="/sign-up">SIGN UP</a>
-                }
-              </li>
-              <li>
-                <a href="/sign-in">LOGIN</a>
-              </li>
+              {
+                if isLoggedIn?.status
+                  <li><a href="javascript:void(0)">{isLoggedIn?.email.toString().toUpperCase()}</a></li>
+              }
+              {
+                if isLoggedIn?.status
+                  <li><a onClick={@onLogoutClick} href="javascript:void(0)">LOG OUT</a></li>
+              }
+              {
+                unless isLoggedIn?.status
+                  <li><a href="#{headerUrl.signup}">SIGN UP</a></li>
+              }
+              {
+                unless isLoggedIn?.status
+                  <li><a href="#{headerUrl.signin}">LOGIN</a></li>
+              }
             </ul>
           </div>
         </div>

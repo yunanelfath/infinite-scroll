@@ -4,6 +4,7 @@ filterState = ->
     cityLists: AdxWrapperStore.cityLists
     sizeLists: AdxWrapperStore.sizeLists
     rotationLists: AdxWrapperStore.rotationLists
+    showFilter: true
   }
 
 FilterScreen = React.createClass
@@ -130,15 +131,23 @@ FilterScreen = React.createClass
       </div>
     </div>
 
+  onToggleShowFilter: (event) ->
+    $(event.target).parent('.filter-screen').find('.filter-box').toggleClass('hide')
+    @setState(showFilter: if $(event.target).parent('.filter-screen').find('.filter-box').hasClass('hide') then false else true)
+
+
   render: ->
-    { propertyTypeLists, cityLists, sizeLists, rotationLists } = @state
+    { propertyTypeLists, cityLists, sizeLists, rotationLists, showFilter } = @state
 
     propertyFilter = @checkBoxContainer(propertyTypeLists, "Property Type")
     monitorFilter = @checkBoxContainer(rotationLists, "Monitor Rotation")
     tvSize = @checkBoxContainer(sizeLists, "TV Size")
     city = @checkBoxContainer(cityLists, "City")
-    <div className="filter-screen">
+    <div className="filter-screen" style={marginBottom: '20px'}>
       <h4>FILTER YOUR SELECTION</h4>
+      <a href="javascript:void(0)"
+        style={marginBottom: '10px'}
+        className="btn btn-primary btn-sm hidden-lg hidden-md" onClick={@onToggleShowFilter}>{if showFilter then 'Hide Filter' else 'Show Filter'}</a>
       <div className="filter-box">
         <div>
           {propertyFilter}

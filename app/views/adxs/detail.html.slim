@@ -10,6 +10,8 @@ javascript:
     }),
     document.querySelector('.form-wrapper-container-react-component')
   );
+  checkIsLoggedIn();
+  detailAuthentication();
 
   if(AdxWrapperStore.deviceDetailId){
     getDeviceDetail(AdxWrapperStore.deviceDetailId)
