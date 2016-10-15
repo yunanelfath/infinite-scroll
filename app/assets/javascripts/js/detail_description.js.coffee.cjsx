@@ -1,3 +1,8 @@
+toCurrencyRp = (num) ->
+  return 'Rp. 0.0' if num == null || num == undefined
+  num = Number(Math.round(num + 'e2') + 'e-2')
+  "#{num.toLocaleString('en-US')}"
+
 DetailDescription = React.createClass
   PropTypes: {
     defaultDetailImage: React.PropTypes.object
@@ -19,7 +24,7 @@ DetailDescription = React.createClass
 
   render: ->
     { deviceDetailContent } = @state
-    { location, description, size, height, width, rotation, price, property_type, address,
+    { location, description, size, height, width, get_rotation_display, price, property_type, address,
       country, province, city, zipcode, audience_daily, average_spending,
       audience_description, frequently_per_hour, imageLists} = deviceDetailContent
 
@@ -56,7 +61,7 @@ DetailDescription = React.createClass
                   <span className="meta-feature">
                     <span>
                       <img src={@props.defaultDetailImage.tv}/>
-                      {rotation}
+                      {get_rotation_display}
                     </span>
                   </span>
                 </div>
@@ -85,7 +90,7 @@ DetailDescription = React.createClass
                     </div>
                     <div className="meta-value">
                       :&nbsp;
-                      <span>Rp. {Number(average_spending).toFixed(2)}/person</span>
+                      <span>Rp. {toCurrencyRp(Number(average_spending))}/person</span>
                     </div>
                   </div>
                   <div className="meta-table">
@@ -94,7 +99,7 @@ DetailDescription = React.createClass
                     </div>
                     <div className="meta-value">
                       :&nbsp;
-                      <span>Rp. {Number(price).toFixed(2)}</span>
+                      <span>Rp. {toCurrencyRp(Number(price))}</span>
                     </div>
                   </div>
                 </div>

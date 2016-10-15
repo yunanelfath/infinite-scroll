@@ -148,7 +148,6 @@ var getDeviceDetailImage = function(id, token){
           actionType: 'adx-global-attributes-setter',
           attributes: {deviceDetailContent: params}
         })
-        getUnavailableDate(id, token)
       },
     })
   }
@@ -196,7 +195,7 @@ var checkIsLoggedIn = function(){
     token = JSON.parse(cookie)
     dispatcher.dispatch({
       actionType: 'adx-global-attributes-setter',
-      attributes: {isLoggedIn: {status: true, email: token.email}}
+      attributes: {isLoggedIn: {status: true, email: token.email, token: token.token}}
     })
   }else{
     dispatcher.dispatch({

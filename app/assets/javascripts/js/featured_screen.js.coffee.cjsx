@@ -71,7 +71,7 @@ FeatureRowItem = React.createClass
     {data, featuredIcon} = @props
 
     employeesTooltip = <Tooltip id="employees-tooltip-#{data.pub_id}">People/day</Tooltip>
-    monitorTooltip = <Tooltip id="people-tooltip-#{data.pub_id}">Landscape Monitor</Tooltip>
+    monitorTooltip = <Tooltip id="people-tooltip-#{data.pub_id}">{data.get_rotation_display}&nbsp;Monitor</Tooltip>
 
     <div className="col-sm-4">
       <div className="box-screen">
@@ -94,7 +94,7 @@ FeatureRowItem = React.createClass
           <div className="feature">
             <OverlayTrigger placement="top" overlay={monitorTooltip}>
               <span>
-                <img src={featuredIcon.tv} alt="#{data.pub_id}"/>Landscape
+                <img src={featuredIcon.tv} alt="#{data.pub_id}"/>{data.get_rotation_display}
               </span>
             </OverlayTrigger>
           </div>

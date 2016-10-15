@@ -68,12 +68,15 @@ SigninForm = React.createClass
           )
         error: (jqXHR, error) ->
           arrValidate = []
-          if jqXHR.responseJSON.email
-            arrValidate.push(jqXHR.responseJSON.email)
-          if jqXHR.responseJSON.password
-            arrValidate.push(jqXHR.responseJSON.json)
-          if jqXHR.responseJSON.non_field_errors
-            arrValidate.push(jqXHR.responseJSON.non_field_errors)
+          if jqXHR?.responseJSON
+            if jqXHR?.responseJSON.email
+              arrValidate.push(jqXHR.responseJSON.email)
+            if jqXHR?.responseJSON.password
+              arrValidate.push(jqXHR.responseJSON.json)
+            if jqXHR?.responseJSON.non_field_errors
+              arrValidate.push(jqXHR.responseJSON.non_field_errors)
+          else
+            arrValidate.push("Something wrong!")
 
           if arrValidate.length > 0
             sweetAlert("Fail","#{arrValidate.join(',')}","error")

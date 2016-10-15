@@ -1,3 +1,6 @@
+countDays = (from, to) =>
+  Math.abs(Math.floor( from.getTime() / (3600*24*1000)) -  Math.floor( to.getTime() / (3600*24*1000)))
+
 FormWrapper = React.createClass
   PropTypes: {
     headerImage: React.PropTypes.object
@@ -248,6 +251,12 @@ FormWrapper = React.createClass
       params.endDate = event.target.value
       @_onDeviceChanged(params)
 
+  onDidChangeEndDate: (data) ->
+    params = AdxWrapperStore.deviceDetailContent
+    params.unAvailableDates = data.unAvailableDates
+    params.availableDates = data.availableDates
+    @_onDeviceChanged(params)
+
   render: ->
     { headerImage, footerImage, formType } = @props
 
@@ -291,7 +300,9 @@ FormWrapper = React.createClass
               <div className="container">
                 <DetailDescription defaultDetailImage={@props.defaultDetailImage}/>
               </div>
-              <DateAvailablelityForm onChangeEndDate={@onChangeEndDate} onChangeStartDate={@onChangeStartDate}/>
+              <DateAvailablelityForm onChangeEndDate={@onChangeEndDate}
+                onDidChangeEndDate={@onDidChangeEndDate}
+                onChangeStartDate={@onChangeStartDate}/>
               <AdsPaymentForm ref="adsPaymentForm" onSubmitForm={@onSubmitForm} onChangeInputFile={@onChangeInputFile}/>
             </div>
           else

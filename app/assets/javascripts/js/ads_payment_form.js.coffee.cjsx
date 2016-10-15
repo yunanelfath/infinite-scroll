@@ -1,3 +1,8 @@
+toCurrencyRp = (num) ->
+  return 'Rp. 0.0' if num == null || num == undefined
+  num = Number(Math.round(num + 'e2') + 'e-2')
+  "#{num.toLocaleString('en-US')}"
+
 AdsPaymentForm = React.createClass
   PropTypes: {
     onChangeInputFile: React.PropTypes.func
@@ -19,6 +24,15 @@ AdsPaymentForm = React.createClass
     @setState(deviceDetailContent: AdxWrapperStore.deviceDetailContent, isLoggedIn: AdxWrapperStore.isLoggedIn)
 
   adsPaymentForm: ->
+    { deviceDetailContent } = @state
+    { startDate, endDate, price, availableDates, unAvailableDates } = deviceDetailContent
+
+    maxDate = Math.max.apply(Math, availableDates)
+    minDate = Math.min.apply(Math, availableDates)
+
+    max2Date = Math.max.apply(Math, unAvailableDates)
+    min2Date = Math.min.apply(Math, unAvailableDates)
+
     <div className="container">
       <div className="row">
         <div className="col-sm-12">
@@ -28,17 +42,17 @@ AdsPaymentForm = React.createClass
               <div className="box-payment">
                 <div className="row">
                   <div className="col-sm-5 col-xs-6">Date(s) for your ad</div>
-                  <div className="col-sm-7 col-xs-6">1 September 2016 - 10 September 2016</div>
+                  <div className="col-sm-7 col-xs-6">{new Date(minDate).toDateString()} - {new Date(maxDate).toDateString()}</div>
                 </div>
                 <div className="mb40"></div>
                 <div className="row">
                   <div className="col-sm-5 col-xs-6">Days available</div>
-                  <div className="col-sm-7 col-xs-6">10 day(s)</div>
+                  <div className="col-sm-7 col-xs-6">{availableDates.length}&nbsp;day(s)</div>
                 </div>
                 <div className="mb40"></div>
                 <div className="row">
                   <div className="col-sm-5 col-xs-6">Date(s) not available </div>
-                  <div className="col-sm-7 col-xs-6">11 September 2016 - 12 September 2016</div>
+                  <div className="col-sm-7 col-xs-6">{new Date(min2Date).toDateString()} - {new Date(max2Date).toDateString()}</div>
                 </div>
                 <div className="mb40"></div>
                 <div className="row">
@@ -46,7 +60,7 @@ AdsPaymentForm = React.createClass
                      Investment/day
                   </div>
                   <div className="col-sm-7 col-xs-6">
-                     Rp. 25.000/day
+                     Rp. {toCurrencyRp(price)}/day
                   </div>
                 </div>
                 <div className="line-1px"></div>
@@ -55,7 +69,7 @@ AdsPaymentForm = React.createClass
                      TOTAL PAYMENT
                   </div>
                   <div className="col-sm-7 col-xs-6">
-                     Rp. 250.000
+                     Rp. {toCurrencyRp(availableDates.length * price)}
                   </div>
                 </div>
               </div>
@@ -126,25 +140,28 @@ AdsPaymentForm = React.createClass
       )
 
   render: ->
-    { isLoggedIn } = @state
-    { startDate, endDate, pub_id } = @state.deviceDetailContent
+    { isLoggedIn, deviceDetailContent } = @state
+    { startDate, endDate, pub_id } = deviceDetailContent
 
-    adsPaymentForm = @adsPaymentForm()
     <div className="ads-payment">
       {
         if isLoggedIn?.status
-          <form
-              data-remote={true}
-              encType="multipart/form-data"
-              id="js-form-ad"
-              method="POST"
-              onSubmit={@setAjaxFormSubmit}
-              action="http://sandbox.10adx.com/advertisement/api/schedule/new/">
-            <input type="hidden" name='device' value={pub_id}/>
-            <input type="hidden" name='start' value={startDate}/>
-            <input type="hidden" name='end' value={endDate}/>
-            {adsPaymentForm}
-          </form>
+          if deviceDetailContent?.availableDates
+            adsPaymentForm = @adsPaymentForm()
+            <form
+                data-remote={true}
+                encType="multipart/form-data"
+                id="js-form-ad"
+                method="POST"
+                onSubmit={@setAjaxFormSubmit}
+                action="http://sandbox.10adx.com/advertisement/api/schedule/new/">
+              <input type="hidden" name='device' value={pub_id}/>
+              <input type="hidden" name='start' value={startDate}/>
+              <input type="hidden" name='end' value={endDate}/>
+              {adsPaymentForm}
+            </form>
+          else
+            <div></div>
         else
           <div className="account-container">
             <h2 className="title-account">You have to login your account</h2>
