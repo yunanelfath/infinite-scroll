@@ -55,7 +55,7 @@ SliderAdx = React.createClass
                     </h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid magnam, excepturi quisquam labore fugiat maiores tempore recusandae error. Saepe veniam illum suscipit fuga incidunt id esse, nam dicta amet maiores.</p>
                     <div className="mb150"></div>
-                    <a href="screen.html" className="btn btn-screen">SEE SCREENS FOR MY ADS</a>
+                    <a href="screens.html" className="btn btn-screen">SEE SCREENS FOR MY ADS</a>
                   </div>
                   <div className="clearfix"></div>
                 </div>
@@ -76,7 +76,7 @@ SliderAdx = React.createClass
                     </h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid magnam, excepturi quisquam labore fugiat maiores tempore recusandae error. Saepe veniam illum suscipit fuga incidunt id esse, nam dicta amet maiores.</p>
                     <div className="mb150"></div>
-                    <a href="screen.html" className="btn btn-screen">SEE SCREENS FOR MY ADS</a>
+                    <a href="screens.html" className="btn btn-screen">SEE SCREENS FOR MY ADS</a>
                   </div>
                   <div className="clearfix"></div>
                 </div>
