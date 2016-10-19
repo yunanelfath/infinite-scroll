@@ -45,3 +45,4 @@
 //= require js/stores/api_store
 //= require js/main
 //= require js/owl.carousel.min
+//= require jquery.Jcrop
