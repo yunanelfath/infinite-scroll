@@ -225,15 +225,93 @@ FormWrapper = React.createClass
       attributes: attributes
     )
 
+
+  clearCanvas: (canvas)->
+    prefsize = {
+      y: 0
+      x: 0
+      w: canvas.width
+      h: canvas.height
+    }
+    console.log 'clearCanvas'
+    console.log prefsize
+    console.log 'clearCanvas ---'
+
+  selectCanvas: (e)->
+    prefsize = {
+      x: Math.round(e.x)
+      y: Math.round(e.y)
+      x2: Math.round(e.x2)
+      y2: Math.round(e.y2)
+      w: Math.round(e.w)
+      h: Math.round(e.h)
+    }
+    console.log "#{prefsize.w}-#{prefsize.h}"
+    $(ReactDOM.findDOMNode(@refs.adsPaymentForm)).find('#target-size small').html("Size Now: #{prefsize.w}-#{prefsize.h} pixels")
+
   onChangeInputFile: (event) ->
     try
       file = event.target.files[0]
     catch e
       return false
 
-    srcUrl = URL.createObjectURL(file)
+    # srcUrl = URL.createObjectURL(file)
 
-    $(ReactDOM.findDOMNode(@refs.adsPaymentForm)).find('.ad-detail').find('.ad-display img').attr('src',srcUrl)
+    # $(ReactDOM.findDOMNode(@refs.adsPaymentForm)).find('.ad-detail').find('.ad-display img').attr('src',srcUrl)
+    image = null
+    canvas = null
+    context = null
+    jcrop_api = null
+
+    if file
+      element = $(ReactDOM.findDOMNode(@refs.adsPaymentForm)).find('#jcrop-target')
+      debugger
+      reader = new FileReader()
+      canvas = null
+      reader.onload = (e) =>
+        image = new Image()
+        debugger
+        image.src = e.target.result
+        image.onload = validateImage(element, image)
+        debugger
+      reader.readAsDataURL(file)
+
+
+    validateImage = (element, image)->
+      debugger
+      if canvas != null
+        image = new Image()
+        image.src = canvas.toDataURL('image/png')
+        image.onload = restartJcrop(element, image)
+      else
+        restartJcrop(element, image)
+
+    restartJcrop = (element, image) =>
+      debugger
+      if jcrop_api != null
+        jcrop_api.destroy()
+      jCropTarget = element
+      jCropTarget.empty()
+      jCropTarget.append("<canvas id=\"canvas\">")
+      canvas = $("#canvas")[0]
+      debugger
+      context = canvas.getContext("2d")
+      debugger
+      canvas.width = image.width;
+      canvas.height = image.height;
+      debugger
+      context.drawImage(image, 0, 0)
+      debugger
+      $('#canvas').Jcrop(
+        onSelect: @selectCanvas
+        onChange: @selectCanvas
+        (e)->
+          debugger
+          jcrop_api = e
+      )
+
+      @clearCanvas(image)
+
     params = AdxWrapperStore.deviceDetailContent
     params.imageFile = file
     @_onDeviceChanged(params)

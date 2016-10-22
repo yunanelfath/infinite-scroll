@@ -87,8 +87,9 @@ AdsPaymentForm = React.createClass
                   <input type="submit" value="SEND" className="hide" id="send-ad"/>
                 </div>
                 <p className="text-center mtb10"><small>Size : 1920 x 1080 pixels</small></p>
-                <div className="ad-display" style={height: '258px',overflow: 'hidden'}>
-                  <img src="http://placehold.it/350x220/843c0c/ffffff?text=Your+Ad"/>
+                <p className="text-center mtb10" id="target-size"><small></small></p>
+                <div className="ad-display">
+                  <div id="jcrop-target" style={background: 'url(http://placehold.it/350x220/843c0c/ffffff?text=Your+Ad)', height: '100%'}></div>
                 </div>
                 <p className="text-center font-bold mtb10">Your Ad</p>
               </div>
