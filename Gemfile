@@ -36,7 +36,7 @@ gem 'coffee-script-source', '1.8.0' #http://stackoverflow.com/questions/28312460
 
 # gem 'win32console' http://stackoverflow.com/questions/31092654/rake-aborted-loaderror-cannot-load-such-file
 
-gem 'react-rails' #https://github.com/reactjs/react-rails
+gem 'react-rails', '~> 1.4.0'
 gem 'sprockets-coffee-react' # file cjsx
 
 gem 'js-routes'

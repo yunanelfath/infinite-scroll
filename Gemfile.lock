@@ -94,6 +94,9 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.9.0)
     multi_json (1.12.1)
+    nokogiri (1.6.8)
+      mini_portile2 (~> 2.1.0)
+      pkg-config (~> 1.1.7)
     nokogiri (1.6.8-x86-mingw32)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
@@ -132,12 +135,12 @@ GEM
     rake (11.2.2)
     rdoc (4.2.2)
       json (~> 1.4)
-    react-rails (1.8.2)
+    react-rails (1.4.2)
       babel-transpiler (>= 0.7.0)
       coffee-script-source (~> 1.8)
       connection_pool
       execjs
-      railties (>= 3.2)
+      rails (>= 3.2)
       tilt
     sass (3.4.22)
     sass-rails (5.0.6)
@@ -181,6 +184,7 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
 
 PLATFORMS
+  ruby
   x86-mingw32
 
 DEPENDENCIES
@@ -195,7 +199,7 @@ DEPENDENCIES
   masonry-rails
   pry
   rails (= 4.2.6)
-  react-rails
+  react-rails (~> 1.4.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   sprockets-coffee-react
